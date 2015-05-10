@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/JSXTransformer.js"></script> -->
+  <script src="js/app.js"></script>
+</head>
+
+<body role="document">
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 ">
+          <div id="heart" class="heart">
+          <div class="circle">
+            <div class="circle-inner">
+              <img class="heartCell" data-life="1" src="img/h1.png">
+              <img class="heartCell" data-life="2" src="img/h2.png">
+              <img class="heartCell" data-life="3" src="img/h3.png">
+              <img class="heartCell" data-life="4" src="img/h4.png">
+              <img class="heartCell" data-life="5" src="img/h5.png">
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div id="question" class="question">
+            <div class="circle qWordCon"><span class="qWord"></span></div>
+            <div class="circle qWordCon"><span class="qWord"></span></div>
+            <div class="circle qWordCon"><span class="qWord"></span></div>
+          </div>
+
+        </div>
+        <div class="col-md-2 ">
+          <div id="time" class="time">
+            <div class="circle">
+
+            </div>
+            <audio id="sound" controls preload="none">
+                <source id="sound_src"  src="" type="audio/mpeg">
+            </audio>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <article id="game" class="container">
+    <div id="board">
+      <div class="background-inner">
+
+        <div id="ballonCon" class="row ballonCon" >
+          <!-- (.col-md-2>.ballon>span{二})*50-->
+          <!-- <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div>
+          <div class="col-md-2">
+            <div class="ballon"><span>二</span></div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </article>
+  <div id="table" >
+    <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 funcBtnCon">
+        <div class="funcBtn" data-func="half">
+          <img src="img/gg.png">
+        </div>
+        <div class="funcBtn" data-func="soundText">
+          <img src="img/gb.png">
+        </div>
+        <div class="funcBtn" data-func="detail" data-func="">
+          <img src="img/gr.png">
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+  </div>
+
+  <script type="text/jsx;harmony=true" src="js/app.js"></script>
+
+
+
+</body>
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,237 @@
+/* line 5, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 6, ../sass/app.scss */
+.background-element, .qWordCon, #board, #table, .circle, .ballon {
+  position: relative;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+/* line 10, ../sass/app.scss */
+.background-element:before, .qWordCon:before, #board:before, #table:before, .circle:before, .ballon:before {
+  content: "";
+  display: block;
+}
+/* line 14, ../sass/app.scss */
+.background-element > *:first-of-type, .qWordCon > *:first-of-type, #board > *:first-of-type, #table > *:first-of-type, .circle > *:first-of-type, .ballon > *:first-of-type {
+  top: 0;
+  position: absolute;
+  width: 100%;
+  margin-left: 0;
+}
+
+/* line 21, ../sass/app.scss */
+.justifyCon, .funcBtnCon {
+  text-align: justify;
+}
+/* line 23, ../sass/app.scss */
+.justifyCon > *, .funcBtnCon > * {
+  display: inline-block;
+  position: relative;
+}
+/* line 27, ../sass/app.scss */
+.justifyCon:before, .funcBtnCon:before {
+  content: '';
+  display: block;
+  width: 100%;
+}
+/* line 32, ../sass/app.scss */
+.justifyCon:after, .funcBtnCon:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+/* line 39, ../sass/app.scss */
+body {
+  background: url(../img/bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* line 44, ../sass/app.scss */
+header {
+  background: url(../img/nav.png);
+  background-size: auto auto;
+  background-repeat: repeat-x;
+  height: 117px;
+  width: 100%;
+  margin-bottom: 30px;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+/* line 56, ../sass/app.scss */
+.question {
+  text-align: center;
+}
+
+/* line 61, ../sass/app.scss */
+.qWordCon span {
+  left: 0;
+  font-size: 30px;
+  line-height: 200%;
+}
+
+/* line 68, ../sass/app.scss */
+#audio {
+  display: none;
+}
+
+/* line 72, ../sass/app.scss */
+#board {
+  margin-top: 147px;
+  background: url(../img/board.png);
+  width: 100%;
+  background-size: contain;
+}
+/* line 79, ../sass/app.scss */
+#board:before {
+  padding-top: 38.9%;
+}
+
+/* line 84, ../sass/app.scss */
+#table {
+  background-image: url("../img/table.png");
+  padding-top: 24%;
+  margin-bottom: 20px;
+}
+
+/* line 98, ../sass/app.scss */
+.heart {
+  text-align: left;
+}
+
+/* line 101, ../sass/app.scss */
+.time {
+  text-align: right;
+}
+
+/* line 104, ../sass/app.scss */
+.circle {
+  display: inline-block;
+  background-image: url(../img/circle.png);
+  width: 166px;
+}
+/* line 110, ../sass/app.scss */
+.circle:before {
+  padding-top: 100%;
+}
+
+/* line 116, ../sass/app.scss */
+.ballon {
+  background: url(../img/bl.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60% auto !important;
+  -moz-transition: background-size 0.1s ease-in-out;
+  -o-transition: background-size 0.1s ease-in-out;
+  -webkit-transition: background-size 0.1s ease-in-out;
+  transition: background-size 0.1s ease-in-out;
+}
+/* line 124, ../sass/app.scss */
+.ballon:before {
+  content: "";
+  padding-top: 100%;
+}
+/* line 130, ../sass/app.scss */
+.ballon:hover {
+  background-size: 70% auto !important;
+  cursor: pointer;
+}
+/* line 134, ../sass/app.scss */
+.ballon.broke {
+  background-size: 0% auto !important;
+}
+/* line 136, ../sass/app.scss */
+.ballon.broke span {
+  opacity: 0;
+}
+/* line 141, ../sass/app.scss */
+.ballon span {
+  top: 50% !important;
+  left: 50%;
+  text-align: center;
+  _width: auto !important;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -moz-transition: opacity 0.1s ease-in-out;
+  -o-transition: opacity 0.1s ease-in-out;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* line 153, ../sass/app.scss */
+.ballonCon {
+  padding: 10px 10px;
+}
+/* line 154, ../sass/app.scss */
+.ballonCon .col-md-2 {
+  width: 10%;
+}
