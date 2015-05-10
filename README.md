@@ -1,8 +1,8 @@
 # Taigi
 
 ```
-sudo npm install connect serve-static
-node server.js
+$ sudo npm install connect serve-static
+$ node server.js
 ```
 [http://localhost:8080/](http://localhost:8080/)
 
