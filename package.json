@@ -1,0 +1,22 @@
+{
+  "name": "Co-construction",
+  "version": "1.0.0",
+  "description": "共構官方網站",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "共構團隊 | 國立政治大學數位內容與科技學士學位學程",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-compass": "^1.0.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-sass": "^0.9.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-react": "^0.12.2",
+    "load-grunt-tasks": "^3.1.0"
+  }
+}
