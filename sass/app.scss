@@ -1,0 +1,158 @@
+@import "compass/reset" ;
+@import "compass/css3/transform" ;
+@import "compass/css3/transition";
+
+
+.background-element {
+  position:relative ;
+  background-size: 100% ;
+  background-repeat:  no-repeat ;
+  &:before {
+    content : "" ;
+    display: block;
+  }
+  > *:first-of-type {
+    top: 0;
+    position: absolute;
+    width: 100% ;
+    margin-left : 0 ;
+  }
+}
+.justifyCon {
+  text-align: justify;
+  > * {
+    display: inline-block;
+    position: relative ;
+  }
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+  }
+  &:after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+  }
+}
+
+body {
+  background: url(../img/bg.png);
+  background-size: cover ;
+  background-repeat: no-repeat ;
+}
+header{
+  background: url(../img/nav.png) ;
+  background-size:auto auto ;
+  background-repeat: repeat-x ;
+  height: 117px;
+  width: 100% ;
+  margin-bottom: 30px;
+  z-index: 10 ;
+  top:0;
+  left:0;
+  position: absolute;
+}
+.question {
+  text-align: center;
+}
+.qWordCon{
+  @extend .background-element ;
+  span{
+    left: 0;
+    font-size: 30px;
+    line-height: 200%;
+  }
+}
+
+#audio {
+  display:none ;
+}
+
+#board {
+  margin-top: 147px;
+  background: url(../img/board.png);
+  @extend .background-element ;
+  width: 100%;
+  background-size: contain;
+
+  &:before{
+    padding-top: 38.9% ;
+  }
+}
+
+#table{
+  background-image: url("../img/table.png");
+  @extend .background-element ;
+
+  padding-top: 24%;
+  margin-bottom: 20px;
+}
+
+
+
+
+.funcBtnCon {
+  @extend .justifyCon ;
+}
+.heart {
+  text-align: left ;
+}
+.time {
+  text-align: right ;
+}
+.circle {
+  display: inline-block ;
+
+  background-image: url(../img/circle.png);
+  @extend .background-element ;
+
+  &:before {
+    padding-top: 100%;
+  }
+  width: 166px;
+}
+
+.ballon {
+  background: url(../img/bl.png) ;
+
+  //@include transition (-moz-transform 1s ease-out );
+  background-position:  center ;
+  background-repeat: no-repeat;
+  background-size: 60% auto !important;
+  @extend .background-element ;
+  &:before {
+    content: "";
+    padding-top:100%;
+  }
+
+  @include transition (background-size .1s ease-in-out ) ;
+  &:hover {
+    background-size: 70% auto !important ;
+    cursor : pointer ;
+  }
+  &.broke {
+    background-size: 0% auto !important ;
+    span {
+      opacity : 0 ;
+    }
+  }
+
+  span{
+    top: 50% !important;
+    left: 50%;
+    text-align: center;
+    _width: auto !important ;
+    @include transform (translate(-50%,-50%));
+    @include transition (opacity .1s ease-in-out ) ;
+  }
+
+
+}
+
+.ballonCon {
+  .col-md-2 {
+    width: 10%;
+  }
+  padding: 10px 10px ;
+}
