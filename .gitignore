@@ -1,11 +1,9 @@
 
 
-/sass/*
 /config.rb
 
-/coffee/*
-
 /GRuntfile.js
+/package.json
 /node_modules/*
 /.sass-cache/*
 /main.html
