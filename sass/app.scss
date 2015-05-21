@@ -55,6 +55,10 @@ header{
 }
 .question {
   text-align: center;
+  .qWord{
+    font-size: 3em;
+    font-weight: 500 ;
+  }
 }
 .qWordCon{
   @extend .background-element ;
@@ -122,7 +126,7 @@ header{
   background-size: 60% auto !important;
   font-size: 1.4em ;
   font-weight: 600 ;
-  color: white ; 
+  color: white ;
   @extend .background-element ;
   &:before {
     content: "";
@@ -149,8 +153,6 @@ header{
     @include transform (translate(-50%,-50%));
     @include transition (opacity .1s ease-in-out ) ;
   }
-
-
 }
 
 .ballonCon {
