@@ -54,14 +54,14 @@ header{
   position: absolute;
 }
 .question {
-  text-align: center;
-  .qWord{
-
+  .circle-inner{
+    margin-top: 20%;
   }
+  text-align: center;
 }
 .qWordCon{
   @extend .background-element ;
-  span{
+  .qWord{
     left: 0;
     font-size: 3em;
     font-weight: 500 ;
@@ -100,7 +100,12 @@ header{
   @extend .justifyCon ;
 }
 .heart {
-  text-align: left ;
+  text-align: center ;
+
+  .circle-inner{
+    margin-top: 20%;
+  }
+
 }
 .time {
   text-align: right ;

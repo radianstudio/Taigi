@@ -129,9 +129,13 @@ header {
 .question {
   text-align: center;
 }
+/* line 57, ../sass/app.scss */
+.question .circle-inner {
+  margin-top: 20%;
+}
 
 /* line 64, ../sass/app.scss */
-.qWordCon span {
+.qWordCon .qWord {
   left: 0;
   font-size: 3em;
   font-weight: 500;
@@ -164,26 +168,30 @@ header {
 
 /* line 102, ../sass/app.scss */
 .heart {
-  text-align: left;
+  text-align: center;
+}
+/* line 105, ../sass/app.scss */
+.heart .circle-inner {
+  margin-top: 20%;
 }
 
-/* line 105, ../sass/app.scss */
+/* line 110, ../sass/app.scss */
 .time {
   text-align: right;
 }
 
-/* line 108, ../sass/app.scss */
+/* line 113, ../sass/app.scss */
 .circle {
   display: inline-block;
   background-image: url(../img/circle.png);
   width: 166px;
 }
-/* line 114, ../sass/app.scss */
+/* line 119, ../sass/app.scss */
 .circle:before {
   padding-top: 100%;
 }
 
-/* line 120, ../sass/app.scss */
+/* line 125, ../sass/app.scss */
 .ballon {
   background: url(../img/bl.png);
   background-position: center;
@@ -197,25 +205,25 @@ header {
   -webkit-transition: background-size 0.1s ease-in-out;
   transition: background-size 0.1s ease-in-out;
 }
-/* line 131, ../sass/app.scss */
+/* line 136, ../sass/app.scss */
 .ballon:before {
   content: "";
   padding-top: 100%;
 }
-/* line 137, ../sass/app.scss */
+/* line 142, ../sass/app.scss */
 .ballon:hover {
   background-size: 70% auto !important;
   cursor: pointer;
 }
-/* line 141, ../sass/app.scss */
+/* line 146, ../sass/app.scss */
 .ballon.broke {
   background-size: 0% auto !important;
 }
-/* line 143, ../sass/app.scss */
+/* line 148, ../sass/app.scss */
 .ballon.broke span {
   opacity: 0;
 }
-/* line 148, ../sass/app.scss */
+/* line 153, ../sass/app.scss */
 .ballon span {
   top: 50% !important;
   left: 50%;
@@ -231,11 +239,11 @@ header {
   transition: opacity 0.1s ease-in-out;
 }
 
-/* line 158, ../sass/app.scss */
+/* line 163, ../sass/app.scss */
 .ballonCon {
   padding: 10px 10px;
 }
-/* line 159, ../sass/app.scss */
+/* line 164, ../sass/app.scss */
 .ballonCon .col-md-2 {
   width: 10%;
 }
