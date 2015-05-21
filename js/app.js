@@ -292,7 +292,7 @@
         return $.ajax({
           type: 'get',
           dataType: 'text',
-          url: 'http://28fed4b1.ngrok.io/q/get_question/',
+          url: 'http://14ef3e60.ngrok.io/q/get_question/',
           success: function(data, status) {
             console.log("Data.getQuestion", status);
             if (typeof callback === 'function') {
@@ -307,7 +307,7 @@
 
       _getOptionProcess = function(data, ans) {
         var arr;
-        arr = data.split('');
+        arr = data.split(',');
         while (arr.indexOf(ans) !== -1) {
           arr.splice(ans, 1);
         }
@@ -319,7 +319,7 @@
         return $.ajax({
           type: 'get',
           dataType: 'text',
-          url: "http://28fed4b1.ngrok.io/q/close_pronounce/" + pronounce,
+          url: "http://14ef3e60.ngrok.io/q/close_pronounce/" + pronounce,
           success: function(data, status) {
             var optionList, text;
             text = Lib.strip(data.responseText);

@@ -199,7 +199,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType: 'text'
-        url: 'http://28fed4b1.ngrok.io/q/get_question/'
+        url: 'http://14ef3e60.ngrok.io/q/get_question/'
         success:(data,status)->
           console.log( "Data.getQuestion", status)
           callback(_getQuestionProcess(data)) if typeof(callback) is 'function'
@@ -207,7 +207,7 @@ $ ->
           console.log(e)
 
     _getOptionProcess = (data,ans)->
-      arr = data.split('')
+      arr = data.split(',')
       while arr.indexOf(ans) isnt -1
         arr.splice(ans, 1);
       console.log("_getOptionProcess",arr)
@@ -218,7 +218,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType : 'text'
-        url: "http://28fed4b1.ngrok.io/q/close_pronounce/#{pronounce}"
+        url: "http://14ef3e60.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
           text = Lib.strip(data.responseText)
           console.log('Data.getPronounce',status ,text )
