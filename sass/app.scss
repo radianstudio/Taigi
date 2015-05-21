@@ -56,15 +56,15 @@ header{
 .question {
   text-align: center;
   .qWord{
-    font-size: 3em;
-    font-weight: 500 ;
+
   }
 }
 .qWordCon{
   @extend .background-element ;
   span{
     left: 0;
-    font-size: 30px;
+    font-size: 3em;
+    font-weight: 500 ;
     line-height: 200%;
   }
 }
@@ -125,7 +125,7 @@ header{
   background-repeat: no-repeat;
   background-size: 60% auto !important;
   font-size: 1.4em ;
-  font-weight: 600 ;
+  font-weight: 300 ;
   color: white ;
   @extend .background-element ;
   &:before {

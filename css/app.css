@@ -129,16 +129,12 @@ header {
 .question {
   text-align: center;
 }
-/* line 58, ../sass/app.scss */
-.question .qWord {
-  font-size: 3em;
-  font-weight: 500;
-}
 
-/* line 65, ../sass/app.scss */
+/* line 64, ../sass/app.scss */
 .qWordCon span {
   left: 0;
-  font-size: 30px;
+  font-size: 3em;
+  font-weight: 500;
   line-height: 200%;
 }
 
@@ -194,7 +190,7 @@ header {
   background-repeat: no-repeat;
   background-size: 60% auto !important;
   font-size: 1.4em;
-  font-weight: 600;
+  font-weight: 300;
   color: white;
   -moz-transition: background-size 0.1s ease-in-out;
   -o-transition: background-size 0.1s ease-in-out;
