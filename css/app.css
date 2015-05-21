@@ -129,89 +129,97 @@ header {
 .question {
   text-align: center;
 }
+/* line 58, ../sass/app.scss */
+.question .qWord {
+  font-size: 3em;
+  font-weight: 500;
+}
 
-/* line 61, ../sass/app.scss */
+/* line 65, ../sass/app.scss */
 .qWordCon span {
   left: 0;
   font-size: 30px;
   line-height: 200%;
 }
 
-/* line 68, ../sass/app.scss */
+/* line 72, ../sass/app.scss */
 #audio {
   display: none;
 }
 
-/* line 72, ../sass/app.scss */
+/* line 76, ../sass/app.scss */
 #board {
   margin-top: 147px;
   background: url(../img/board.png);
   width: 100%;
   background-size: contain;
 }
-/* line 79, ../sass/app.scss */
+/* line 83, ../sass/app.scss */
 #board:before {
   padding-top: 38.9%;
 }
 
-/* line 84, ../sass/app.scss */
+/* line 88, ../sass/app.scss */
 #table {
   background-image: url("../img/table.png");
   padding-top: 24%;
   margin-bottom: 20px;
 }
 
-/* line 98, ../sass/app.scss */
+/* line 102, ../sass/app.scss */
 .heart {
   text-align: left;
 }
 
-/* line 101, ../sass/app.scss */
+/* line 105, ../sass/app.scss */
 .time {
   text-align: right;
 }
 
-/* line 104, ../sass/app.scss */
+/* line 108, ../sass/app.scss */
 .circle {
   display: inline-block;
   background-image: url(../img/circle.png);
   width: 166px;
 }
-/* line 110, ../sass/app.scss */
+/* line 114, ../sass/app.scss */
 .circle:before {
   padding-top: 100%;
 }
 
-/* line 116, ../sass/app.scss */
+/* line 120, ../sass/app.scss */
 .ballon {
   background: url(../img/bl.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60% auto !important;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: white;
   -moz-transition: background-size 0.1s ease-in-out;
   -o-transition: background-size 0.1s ease-in-out;
   -webkit-transition: background-size 0.1s ease-in-out;
   transition: background-size 0.1s ease-in-out;
 }
-/* line 124, ../sass/app.scss */
+/* line 131, ../sass/app.scss */
 .ballon:before {
   content: "";
   padding-top: 100%;
 }
-/* line 130, ../sass/app.scss */
+/* line 137, ../sass/app.scss */
 .ballon:hover {
   background-size: 70% auto !important;
   cursor: pointer;
 }
-/* line 134, ../sass/app.scss */
+/* line 141, ../sass/app.scss */
 .ballon.broke {
   background-size: 0% auto !important;
 }
-/* line 136, ../sass/app.scss */
+/* line 143, ../sass/app.scss */
 .ballon.broke span {
   opacity: 0;
 }
-/* line 141, ../sass/app.scss */
+/* line 148, ../sass/app.scss */
 .ballon span {
   top: 50% !important;
   left: 50%;
@@ -227,11 +235,11 @@ header {
   transition: opacity 0.1s ease-in-out;
 }
 
-/* line 153, ../sass/app.scss */
+/* line 158, ../sass/app.scss */
 .ballonCon {
   padding: 10px 10px;
 }
-/* line 154, ../sass/app.scss */
+/* line 159, ../sass/app.scss */
 .ballonCon .col-md-2 {
   width: 10%;
 }
