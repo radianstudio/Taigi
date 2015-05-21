@@ -120,6 +120,9 @@ header{
   background-position:  center ;
   background-repeat: no-repeat;
   background-size: 60% auto !important;
+  font-size: 1.4em ;
+  font-weight: 600 ;
+  color: white ; 
   @extend .background-element ;
   &:before {
     content: "";
