@@ -63,18 +63,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* line 6, ../sass/app.scss */
+@font-face {
+  font-family: SE;
+  src: url("../font/ChekiangShuKeSung.TTF");
+}
+/* line 11, ../sass/app.scss */
 .background-element, .qWordCon, #board, #table, .circle, .ballon {
   position: relative;
   background-size: 100%;
   background-repeat: no-repeat;
 }
-/* line 10, ../sass/app.scss */
+/* line 15, ../sass/app.scss */
 .background-element:before, .qWordCon:before, #board:before, #table:before, .circle:before, .ballon:before {
   content: "";
   display: block;
 }
-/* line 14, ../sass/app.scss */
+/* line 19, ../sass/app.scss */
 .background-element > *:first-of-type, .qWordCon > *:first-of-type, #board > *:first-of-type, #table > *:first-of-type, .circle > *:first-of-type, .ballon > *:first-of-type {
   top: 0;
   position: absolute;
@@ -82,36 +86,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   margin-left: 0;
 }
 
-/* line 21, ../sass/app.scss */
+/* line 26, ../sass/app.scss */
 .justifyCon, .funcBtnCon {
   text-align: justify;
 }
-/* line 23, ../sass/app.scss */
+/* line 28, ../sass/app.scss */
 .justifyCon > *, .funcBtnCon > * {
   display: inline-block;
   position: relative;
 }
-/* line 27, ../sass/app.scss */
+/* line 32, ../sass/app.scss */
 .justifyCon:before, .funcBtnCon:before {
   content: '';
   display: block;
   width: 100%;
 }
-/* line 32, ../sass/app.scss */
+/* line 37, ../sass/app.scss */
 .justifyCon:after, .funcBtnCon:after {
   content: '';
   display: inline-block;
   width: 100%;
 }
 
-/* line 39, ../sass/app.scss */
+/* line 44, ../sass/app.scss */
 body {
   background: url(../img/bg.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* line 44, ../sass/app.scss */
+/* line 49, ../sass/app.scss */
 header {
   background: url(../img/nav.png);
   background-size: auto auto;
@@ -125,106 +129,161 @@ header {
   position: absolute;
 }
 
-/* line 56, ../sass/app.scss */
+/* line 62, ../sass/app.scss */
+#time #timImg {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+}
+/* line 66, ../sass/app.scss */
+#time #timImg img {
+  width: 100%;
+}
+/* line 71, ../sass/app.scss */
+#time .circle {
+  background: none;
+}
+/* line 74, ../sass/app.scss */
+#time .circle-inner {
+  top: 0;
+  z-index: 3;
+}
+
+/* line 80, ../sass/app.scss */
+#sound {
+  display: none;
+}
+
+/* line 83, ../sass/app.scss */
 .question {
   text-align: center;
 }
-/* line 57, ../sass/app.scss */
-.question .circle-inner {
-  margin-top: 20%;
-}
 
-/* line 64, ../sass/app.scss */
+/* line 88, ../sass/app.scss */
 .qWordCon .qWord {
+  font-family: SE !important;
   left: 0;
-  font-size: 3em;
+  font-size: 6em;
   font-weight: 500;
-  line-height: 200%;
+  line-height: 166px;
 }
 
-/* line 72, ../sass/app.scss */
+/* line 98, ../sass/app.scss */
+#time {
+  text-align: center;
+}
+/* line 100, ../sass/app.scss */
+#time #timeText {
+  left: 0;
+  font-size: 4em;
+  font-weight: 500;
+  line-height: 140px;
+}
+/* line 107, ../sass/app.scss */
+#time .soundClickSpan {
+  z-index: 4;
+  position: absolute;
+  width: 100%;
+  top: 144px;
+  height: 100px;
+  cursor: pointer;
+}
+
+/* line 117, ../sass/app.scss */
 #audio {
   display: none;
 }
 
-/* line 76, ../sass/app.scss */
+/* line 121, ../sass/app.scss */
 #board {
   margin-top: 147px;
+  margin-left: auto;
+  margin-right: auto;
   background: url(../img/board.png);
-  width: 100%;
+  width: 80%;
   background-size: contain;
 }
-/* line 83, ../sass/app.scss */
+/* line 130, ../sass/app.scss */
 #board:before {
   padding-top: 38.9%;
 }
 
-/* line 88, ../sass/app.scss */
+/* line 135, ../sass/app.scss */
 #table {
   background-image: url("../img/table.png");
   padding-top: 24%;
   margin-bottom: 20px;
 }
 
-/* line 102, ../sass/app.scss */
+/* line 149, ../sass/app.scss */
 .heart {
   text-align: center;
 }
-/* line 105, ../sass/app.scss */
+/* line 151, ../sass/app.scss */
+.heart .heartCell {
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+}
+/* line 154, ../sass/app.scss */
+.heart .heartCell.hurt {
+  opacity: 0;
+}
+/* line 158, ../sass/app.scss */
 .heart .circle-inner {
   margin-top: 20%;
 }
 
-/* line 110, ../sass/app.scss */
-.time {
-  text-align: right;
-}
-
-/* line 113, ../sass/app.scss */
+/* line 166, ../sass/app.scss */
 .circle {
   display: inline-block;
   background-image: url(../img/circle.png);
-  width: 166px;
+  width: 140px;
 }
-/* line 119, ../sass/app.scss */
+/* line 172, ../sass/app.scss */
 .circle:before {
   padding-top: 100%;
 }
 
-/* line 125, ../sass/app.scss */
+/* line 178, ../sass/app.scss */
 .ballon {
-  background: url(../img/bl.png);
+  background-image: url(../img/br.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 60% auto !important;
-  font-size: 1.4em;
+  background-size: 80% auto !important;
+  font-size: 2em;
   font-weight: 300;
-  color: white;
-  -moz-transition: background-size 0.1s ease-in-out;
-  -o-transition: background-size 0.1s ease-in-out;
-  -webkit-transition: background-size 0.1s ease-in-out;
-  transition: background-size 0.1s ease-in-out;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  -moz-transition: background-size 0.4s ease-in-out;
+  -o-transition: background-size 0.4s ease-in-out;
+  -webkit-transition: background-size 0.4s ease-in-out;
+  transition: background-size 0.4s ease-in-out;
 }
-/* line 136, ../sass/app.scss */
+/* line 191, ../sass/app.scss */
 .ballon:before {
   content: "";
-  padding-top: 100%;
+  padding-top: 150%;
 }
-/* line 142, ../sass/app.scss */
+/* line 197, ../sass/app.scss */
 .ballon:hover {
   background-size: 70% auto !important;
   cursor: pointer;
 }
-/* line 146, ../sass/app.scss */
+/* line 201, ../sass/app.scss */
 .ballon.broke {
+  cursor: default;
   background-size: 0% auto !important;
 }
-/* line 148, ../sass/app.scss */
+/* line 204, ../sass/app.scss */
 .ballon.broke span {
   opacity: 0;
 }
-/* line 153, ../sass/app.scss */
+/* line 209, ../sass/app.scss */
 .ballon span {
+  font-family: SE !important;
   top: 50% !important;
   left: 50%;
   text-align: center;
@@ -233,17 +292,26 @@ header {
   -ms-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  -moz-transition: opacity 0.1s ease-in-out;
-  -o-transition: opacity 0.1s ease-in-out;
-  -webkit-transition: opacity 0.1s ease-in-out;
-  transition: opacity 0.1s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
 }
 
-/* line 163, ../sass/app.scss */
+/* line 220, ../sass/app.scss */
 .ballonCon {
-  padding: 10px 10px;
+  padding: 50px 10px;
 }
-/* line 164, ../sass/app.scss */
+/* line 221, ../sass/app.scss */
 .ballonCon .col-md-2 {
   width: 10%;
+}
+/* line 223, ../sass/app.scss */
+.ballonCon .col-md-2:nth-child(2n-1) {
+  background-image: url(../img/bl.png);
+}
+
+/* line 232, ../sass/app.scss */
+.funcBtn.used {
+  visibility: hidden;
 }

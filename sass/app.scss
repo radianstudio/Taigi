@@ -2,6 +2,11 @@
 @import "compass/css3/transform" ;
 @import "compass/css3/transition";
 
+@font-face {
+  font-family: SE ;
+  src: url('../font/ChekiangShuKeSung.TTF') ;
+}
+
 
 .background-element {
   position:relative ;
@@ -53,19 +58,59 @@ header{
   left:0;
   position: absolute;
 }
-.question {
-  .circle-inner{
-    margin-top: 20%;
+#time {
+  #timImg{
+    position: absolute;
+    z-index: 1 ;
+    top: 0;
+    img{
+      width: 100%;
+
+    }
   }
+  .circle {
+    background: none;
+  }
+  .circle-inner{
+    top : 0 ;
+    z-index: 3;
+  }
+}
+
+#sound{
+  display: none;
+}
+.question {
   text-align: center;
 }
 .qWordCon{
   @extend .background-element ;
   .qWord{
+    font-family: SE !important ;
     left: 0;
-    font-size: 3em;
+    font-size: 6em;
     font-weight: 500 ;
-    line-height: 200%;
+    line-height: 166px;
+
+  }
+}
+
+#time{
+  text-align: center;
+  #timeText {
+
+    left: 0;
+    font-size: 4em;
+    font-weight: 500;
+    line-height: 140px;
+  }
+  .soundClickSpan{
+    z-index: 4 ;
+    position: absolute;
+    width: 100%;
+    top:144px;
+    height: 100px;
+    cursor: pointer;
   }
 }
 
@@ -75,9 +120,11 @@ header{
 
 #board {
   margin-top: 147px;
+  margin-left: auto;
+  margin-right: auto;
   background: url(../img/board.png);
   @extend .background-element ;
-  width: 100%;
+  width: 80%;
   background-size: contain;
 
   &:before{
@@ -101,15 +148,21 @@ header{
 }
 .heart {
   text-align: center ;
-
+  .heartCell{
+    @include transition (opacity 1s ease-in-out ) ;
+    opacity: 1 ;
+    &.hurt{
+      opacity: 0 ;
+    }
+  }
   .circle-inner{
     margin-top: 20%;
   }
 
 }
-.time {
-  text-align: right ;
-}
+// .time {
+//   text-align: right ;
+// }
 .circle {
   display: inline-block ;
 
@@ -119,31 +172,34 @@ header{
   &:before {
     padding-top: 100%;
   }
-  width: 166px;
+  width: 140px;
 }
 
 .ballon {
-  background: url(../img/bl.png) ;
+  background-image: url(../img/br.png) ;
 
   //@include transition (-moz-transform 1s ease-out );
   background-position:  center ;
   background-repeat: no-repeat;
-  background-size: 60% auto !important;
-  font-size: 1.4em ;
+  background-size: 80% auto !important;
+  font-size: 2em ;
   font-weight: 300 ;
-  color: white ;
+
+  margin-top:20px;
+  margin-bottom: 20px;
   @extend .background-element ;
   &:before {
     content: "";
-    padding-top:100%;
+    padding-top:150%;
   }
 
-  @include transition (background-size .1s ease-in-out ) ;
+  @include transition (background-size .4s ease-in-out ) ;
   &:hover {
     background-size: 70% auto !important ;
     cursor : pointer ;
   }
   &.broke {
+    cursor : default;
     background-size: 0% auto !important ;
     span {
       opacity : 0 ;
@@ -151,18 +207,29 @@ header{
   }
 
   span{
+    font-family: SE !important ;
     top: 50% !important;
     left: 50%;
     text-align: center;
     _width: auto !important ;
     @include transform (translate(-50%,-50%));
-    @include transition (opacity .1s ease-in-out ) ;
+    @include transition (opacity .4s ease-in-out ) ;
   }
 }
 
 .ballonCon {
   .col-md-2 {
     width: 10%;
+    &:nth-child(2n-1){
+      background-image: url(../img/bl.png) ;
+    }
   }
-  padding: 10px 10px ;
+
+  padding: 50px 10px ;
+}
+
+.funcBtn {
+  &.used{
+    visibility: hidden;
+  }
 }

@@ -1,5 +1,5 @@
 $ ->
-  class Lib
+  class _Lib
     constructor :()->
     getRandomInt : (min, max) ->
       Math.floor(Math.random() * (max - min + 1)) + min
@@ -9,45 +9,112 @@ $ ->
       tmp.innerHTML = html
       tmp.textContent or tmp.innerText or ''
 
+    shuffle : (o) ->
+      j = undefined
+      x = undefined
+      i = o.length
+      while i
+        j = Math.floor(Math.random() * i)
+        x = o[--i]
+        o[i] = o[j]
+        o[j] = x
+      o
 
-  class Score
+  class _Score
+    Main = undefined
     score = undefined
-    constructor:(initScore = 0 )->
+    constructor:(_Main , initScore = 0 )->
+      Main = _Main
       score = initScore
-    getScore : ()->
-      score
-    addScore : (amount = 20)->
+    reset : -> score = 0 ; return ;
+    getScore : -> score
+    addScore : (amount = 1)->
       score += amount
       return
 
-  class Life
-    life = undefined
+  class _Life
+    Main = undefined
+    THIS = undefined
+    _max = 5
+    _life = undefined
     $heart = $("#heart")
 
-    constructor : (@life)->
-
-    minus : (num)->
-      life -= num
-      $heart.find('.heartCell')
-
-    setLife : ()->
-
-
-
-  class Time
-    THIS = undefined
-    $timeView : $("#time")
-    _time = undefined
-    constructor:()->
+    constructor : (_Main , life = 5)->
+      Main = _Main
       THIS = @
-    overTime :()->
-    resetTime :(time = 30)->
-      _time = time
+      _life = life
+      THIS.updateView(_life)
+    minus : (num = 1)->
+      _life -= num
+
+      THIS.updateView(_life)
+
+    setLife : (life)->
+      _life = life
+      THIS.updateView(_life)
+    updateView : (life) ->
+      # alert('updateView')
+      $collection = $("#heart .heartCell")
+      for i in [0..._max]
+        if i < life
+          $collection.eq(i).toggleClass('hurt',false)
+        else # 當 i 大於等於生命值時，代表他應該隱藏了
+          $h = $collection.eq(i)
+          if not $h.hasClass('hurt') and life is 0
+            done =false
+            $h.one 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' , (e)->
+              if not done
+                Main.lose('die')
+                done = true
+          $h.toggleClass('hurt',true)
+
+
+  class _Time
+    Main = undefined
+    THIS = undefined
+    $timeView = $("#time")
+    $timeTextView = $("#timeText")
+    _time = undefined
+    t = undefined
+
+    _countLoop = ()->
+
+      _time = _time - 1
+      $timeTextView.text _time
+      if _time is 0
+        THIS.timeOut()
+      else
+        t = setTimeout _countLoop, 1000
+        # console.log('t',t);
+      return
+
+    constructor:(_Main)->
+      Main = _Main
+      THIS = @
+
+    start : (time = 30)->
+      THIS.stop()
+      _time = time + 1
+      _countLoop()
+      #console.log(t)
+    reStart : (time)->
+      _time = time + 1 if time?
+      THIS.stop()
+      _countLoop()
+
+    timeOut:()->
+      THIS.stop()
+      Main.lose('timeout')
+    stop : ()->
+      # console.log('t',t)
+      if t? then clearTimeout t
+      # console.log(t)
     remainTime :()->
-    currentTime:()->
+      return _time
 
 
-  class Question
+  class _Question
+    Main = undefined
     $question = $('#question')
     $sound = $('#sound')
     _answer = undefined
@@ -62,8 +129,8 @@ $ ->
         """
       _html
 
-    constructor :(data)->
-
+    constructor :(_Main , data)->
+      Main = _Main
     showAnswer:()->
 
     refresQuestion : (question,qIndex , callback)->
@@ -74,7 +141,8 @@ $ ->
         callback() if typeof(callback) is 'function'
 
 
-  class Board
+  class _Board
+    Main = undefined
     THIS = undefined
     _answerIndex = undefined
     $boardContainer = $("#ballonCon")
@@ -83,55 +151,79 @@ $ ->
       if word? then hasWord = true else hasWord = false
 
       """
-        <div class="col-md-2" >
-          <div class="ballon" data-index="#{index}" data-hasWord="#{hasWord}">
-            <span>#{if word? then word else '' }</span>
-          </div>
+        <div class="col-md-2 ballon broke" data-index="#{index}" data-hasWord="#{hasWord}">
+          <span>#{if word? then word else '' }</span>
         </div>
       """
 
-    constructor : ()->
+    _processList = (optionList)-> # 20 options to 20 ballon
+      finalList = Lib.shuffle(optionList)
+      # console.log(finalList)
+      return finalList
+
+    constructor : (_Main)->
+      Main = _Main
       THIS = @
+
+    half : ()->
+      $ballons = $boardContainer.find('.ballon')
+      length = $ballons.length
+      eliminateLength = Math.floor(length/2)
+      arr = Lib.shuffle([0..length])
+
+      eliminateArr = []
+      while eliminateArr.length isnt eliminateLength
+        v = arr.shift()
+        eliminateArr.push(v) if v isnt _answerIndex
+      console.info('int:half.',"eliminateArr",eliminateArr,'_answerIndex',_answerIndex)
+      $ballons.each (i,obj)->
+        $this = $(this)
+        $this.addClass('broke') if eliminateArr.indexOf(parseInt($this.data('index'))) isnt -1
 
     checkAnswer:(index)-> # used on ballon on click
       c = index is _answerIndex
 
-    refreshBoard :(optionList)-> # used by controller.
+    refreshBoard :(answerWord , optionList) -> # used by controller.
+      # console.info("refreshBoard")
       _answerIndex = undefined ;
+      # console.log("refreshBoard 的 optionList:" , optionList)
       finalList = _processList(optionList) ;
 
-      THIS.destruct()
+      _answerIndex = optionList.indexOf(answerWord)
+      THIS.destruct ->
+        # console.log("showing")
+        for w , i in finalList # show new options on Board
+          html = _getBallonHtml(w, i)
+          $(html).appendTo($boardContainer)
 
-      for w , i in finalList # show new options on Board
-        html = _getBallonHtml(w, i)
-        console.log $boardContainer.length
+        setTimeout (-> $boardContainer.find('.ballon').removeClass('broke')),100
 
-        $(html).appendTo($boardContainer)
-
-    _processList = (optionList)-> # 20 options to 50 ballon
-      finalList = new Array(50)
-
-      while (optionList.length > 0)
-        console.log optionList.length
-        ran = Lib.getRandomInt(0,49)
-        if finalList[ran]?
-          continue
-        else
-          _answerIndex = ran if not _answerIndex?
-          finalList[ran] = optionList.pop()
-      console.log(finalList)
-      finalList
+    destruct : (callback)->
+      $collection = $boardContainer.find('.col-md-2')
+      if $collection.length is 0
+        callback() if callback?
+      else
+        setTimeout (()->
+          $collection.remove()
+          callback() if callback?
+        ),800
 
 
 
-    destruct : ()->
-      $boardContainer.find('.ballon').remove()#.addClass('broke')
+
+        $("#ballonCon .ballon").addClass('broke')
 
 
-  class Audio
+
+
+
+
+  class _Audio
+    Main = undefined
     $audio = $("#sound")
     $audioSrc = $("#sound_src")
-    constructor:()->
+    constructor:(_Main)->
+      Main = _Main
 
     refreshSrc : (url)->
       $audioSrc.attr('src',url)
@@ -141,8 +233,15 @@ $ ->
     play:()->
       $audio[0].play()
 
+    checkSrc : -> $audioSrc.attr('src').length > 3
 
-  class Data
+
+
+
+  class _Data
+    THIS = undefined
+    Main = undefined
+
     _initAjax = ()->
       jQuery.ajax = ((_ajax) ->
         protocol = location.protocol
@@ -177,15 +276,39 @@ $ ->
             )(o.success)
           _ajax.apply this, arguments
       )(jQuery.ajax)
-    constructor : ()->
+    constructor : (_Main)->
+      THIS = @ ;
+      Main = _Main
       _initAjax()
 
+    prepareQuestion : (callback)->
+      dataToShow = {}
+      _return = ()->
+
+        if callback? and dataToShow.optionList? and dataToShow.audioUrl?
+          console.info('prepareQuestion success', dataToShow.question,dataToShow.audioUrl);
+          # console.log(dataToShow)
+          callback(dataToShow)
+      console.log('prepareQuestion ing ...')
+      THIS.getQuestion (Q)->                        #  get question object
+        dataToShow.question = Q.question
+        dataToShow.qIndex = Q.qIndex
+        dataToShow.answerWord = Q.qArr[Q.qIndex];              #  get the word which is answer
+        THIS.getOptionList dataToShow.answerWord ,Q.pArr[Q.qIndex] , (optionList)->
+          console.warn('選項文字串長度不及20',optionList.length) if optionList.length < 20
+          dataToShow.optionList = optionList
+          _return()
+        THIS.getMp3 Q.question , (url)->            #  get mp3 by question
+          if (url.length < 2) then console.warn "抓不到[#{Q.question}]的發音Mp3", dataToShow.audioUrl
+          dataToShow.audioUrl = url
+          _return()
+
+
+
     _getQuestionProcess = (data)->
-
-
       # parse html to text
       text = Lib.strip(data.responseText)
-      console.log text
+      # console.log text
 
       a = text.split(":")
       result =
@@ -201,17 +324,21 @@ $ ->
         dataType: 'text'
         url: 'http://14ef3e60.ngrok.io/q/get_question/'
         success:(data,status)->
-          console.log( "Data.getQuestion", status)
+          # console.log( "Data.getQuestion", status)
           callback(_getQuestionProcess(data)) if typeof(callback) is 'function'
         error : (e)->
-          console.log(e)
+          console.warn("getQuestion, ajax error",e)
 
     _getOptionProcess = (data,ans)->
       arr = data.split(',')
       while arr.indexOf(ans) isnt -1
         arr.splice(ans, 1);
-      console.log("_getOptionProcess",arr)
-      arr.slice(0,19)
+      while arr.indexOf("") isnt -1
+        arr.splice("", 1)
+      arr = arr.slice(0,19)
+      # console.log("_getOptionProcess",arr)
+      arr.push(ans) #  push answer to optionList
+      return arr
 
 
     getOptionList : (word,pronounce,callback)->
@@ -221,11 +348,11 @@ $ ->
         url: "http://14ef3e60.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
           text = Lib.strip(data.responseText)
-          console.log('Data.getPronounce',status ,text )
+          # console.log('Data.getPronounce',status ,text )
           optionList = _getOptionProcess(text,word) ;
           callback(optionList) if typeof(callback) is 'function'
         error : ()->
-          console.log(e)
+          console.warn("getOptionList , ajax error ",e)
 
 
     getMp3 : (word,callback)->
@@ -248,11 +375,11 @@ $ ->
           text: word
           vbr_quality: '1'
         error: (error) ->
-          console.log error
+          console.warn "getMp3 , ajax error",error
         success: (data,status) ->
-          console.log("Data.getMp3",status)
+          # console.log("Data.getMp3",status)
           url = _getMp3Process(data)
-          console.log("Data.getMp3", 'url' , url)
+          # console.log("Data.getMp3", 'url' , url)
           callback(url)
 
     _getMp3Process = (data)->
@@ -262,83 +389,160 @@ $ ->
       url = str.slice(pos_head, pos_tail - 1)
       url = url.replace(/\\/g, '')
 
+      return url
+
+
+  class _Page
+    THIS = undefined
+    Main = undefined
+    $loseModal = $("#loseModal")
+    $winModal = $('#winModal')
+
+    $(document).on 'click','#loseModal .restart' , ()->
+      $loseModal.modal('hide')
+      Main.newGame()
+
+    constructor :(_Main)->
+      THIS = @
+      Main = _Main
+
+      $loseModal.show = (howStr,score)->
+        $loseModal.find('.how').text(howStr)
+        $loseModal.find('.score').text(score)
+
+        $loseModal.modal(
+          'backdrop' : 'static'
+          'keyboard' : false
+        )
+
+    $winModal : $winModal
+    $loseModal : $loseModal
+
+
 
   class GameController
     THIS = undefined
 
-    Lib = new Lib()
-    Data = new Data()
+    Data = undefined
 
-    Question = new Question()
-    Board = new Board()
-    Audio = new Audio()
-    Timer = new Time()
+    Question = undefined
+    Board = undefined
+    Audio = undefined
+    Timer = undefined
 
-    Life = new Life()
-    Score = new Score()
+    Life = undefined
+    Score = undefined
 
+    Page = undefined
 
-    _funcStatus = undefined
+    _funcStatus = {}
+
+    questionDataList = []
+
+    ## view
 
     _initFuncStatus = ()->
-      funcStatus =
+      $('.funcBtn').removeClass('used')
+      _funcStatus =
         half : true
         soundText : true
-        detail : true
+        skip : true
 
+    _initSubControllers = (_this)->
+      Data = new _Data(_this)
+      Question = new _Question(_this)
+      Board = new _Board(_this)
+      Audio = new _Audio(_this)
+      Timer = new _Time(_this)
+      Life = new _Life(_this,1)
+      Score = new _Score(_this)
+      Page = new _Page(_this)
+
+
+
+    prepareQuesiton : (wellPreparedCallback)->
+      if questionDataList.length < 2
+        Data.prepareQuestion (dataToShow)->
+          questionDataList.push(dataToShow)
+          THIS.prepareQuesiton(wellPreparedCallback)
+      else if questionDataList.length >= 2
+        # console.log("wellPreparedCallback",wellPreparedCallback)
+        wellPreparedCallback() if wellPreparedCallback?
     constructor : ()->
       THIS = @
-      THIS.nextQuestion()
-      _funcStatus = _initFuncStatus()
+      _initSubControllers(THIS)
+      THIS.prepareQuesiton ()->
+        THIS.nextQuestion()
+      _initFuncStatus()
 
     nextQuestion : ()->
-      Data.getQuestion (Q)->                        #  get question object
-        answerWord = Q.qArr[Q.qIndex];              #  get the word which is answer
+      THIS.prepareQuesiton()
+      Timer.start()
+      data = questionDataList.shift()
+      Board.refreshBoard(data.answerWord , data.optionList) ## Board to next round
 
+      Audio.refreshSrc(data.audioUrl)
+      Question.refresQuestion data.question, data.qIndex , ()->
+        Audio.play()
 
-        Data.getOptionList answerWord ,Q.pArr[Q.qIndex] , (optionList)->
-                                                    #get optionList by pron and ans.
-          optionList.push(answerWord)               #  push answer to optionList
-          Board.refreshBoard(optionList)            ## Board to next round
-          Question.refresQuestion Q.question,Q.qIndex , ()->
-            Data.getMp3 Q.question , (url)->            #  get mp3 by question
-              Audio.refreshSrc(url);                    ## Audio to next round
-              Audio.play()
-
-                   ## Question to next round
-
+    playSound : ()->
+      console.log(Audio)
+      if Audio.checkSrc()
+        Audio.play()
+        return true 
+      else
+        return false
 
 
 
     hint :(func)-> # the three treat function
+      able = _funcStatus[func]
+      console.log _funcStatus, able , func
+      if able
 
-      switch func
-        when 'half'
-          r = true
-        when 'soundText'
-          r = true
-        when 'detail'
-          r = true
-      r
+        _funcStatus[func] = false
+
+        switch func
+          when 'half'
+            Board.half()
+          # when 'soundText'
+          when 'skip'
+            Main.nextQuestion()
+          else
+            console.warn('沒有處理的提示功能',func)
+      return able
+
+
     minusLife : (amount = 1)->
       Life.minus(amount)
 
     newGame : ()->
       THIS.nextQuestion()
-      _funcStatusInit()
-      Life = new Life()
-      Score = new Score()
+      _initFuncStatus()
+      Life.setLife(5)
+      Score.reset()
 
-    addScore : (amount = 20)->
+    addScore : (amount)->
       Score.addScore(amount)
 
     checkAnswer:(index)->
       Board.checkAnswer(index)
 
-  Main = new GameController()
+    lose : (how)->
+      howStr = undefined
+      Timer.stop()
+      switch how
+        when 'die' then howStr = "你失去所有生命值.."
+        when 'timeout' then howStr = "你沒有在時間內完成答題.."
 
-  $(document).on 'click','.ballon',()->
+      Page.$loseModal.show(howStr,Score.getScore())
+
+  Lib = new _Lib()
+  Main = new GameController()
+  $document = $(document) ;
+  $document.on 'click','.ballon',()->
     $t = $(@)
+    return false if $t.hasClass('broke')
     $t.addClass('broke')
     if $t.data('hasword') is true
       if Main.checkAnswer($t.data('index'))
@@ -348,8 +552,11 @@ $ ->
       else
         alert('答錯了')
         Main.minusLife()
-  $(document).on 'click','.funcBtn',()->
+  $document.on 'click','.funcBtn',()->
     if Main.hint($(@).data('func'))
-      $(@).addClass('used disabled').prop('disabled','disabled')
+      $(@).addClass('used')
     else
       alert '這功能你已經用過了喔'
+
+  $document.on 'click','.soundClickSpan', ->
+    alert('後端抓不到發音的音訊') if not Main.playSound()
