@@ -454,7 +454,7 @@ $ ->
       Board = new _Board(_this)
       Audio = new _Audio(_this)
       Timer = new _Time(_this)
-      Life = new _Life(_this,1)
+      Life = new _Life(_this)
       Score = new _Score(_this)
       Page = new _Page(_this)
 
@@ -489,7 +489,7 @@ $ ->
       console.log(Audio)
       if Audio.checkSrc()
         Audio.play()
-        return true 
+        return true
       else
         return false
 
