@@ -122,8 +122,10 @@ $ ->
     _answer = undefined
     _question = undefined
 
-    _ansWord = undefined
-    _ansPron = undefined
+    _currentAns =
+      _ansWord : undefined
+      _ansPron : undefined
+      _ansIndex : undefined
 
     _getHtml = (question,pronounce,qIndex)->
       _html = ""
@@ -142,11 +144,19 @@ $ ->
     constructor :(_Main , data)->
       Main = _Main
     showAnsWord:()->
+      $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord)
 
     showAnsPron:()->
-
+      $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qPron').text(_currentAns._ansPron)
 
     refresQuestion : (question,pronounce,qIndex , callback)->
+
+      _currentAns._ansIndex = qIndex
+      _currentAns._ansWord = question.charAt(qIndex)
+      _currentAns._ansPron = pronounce[qIndex]
+
+
+
       $currentQuestion = $question.find('.qWordCon')
       $.when($currentQuestion.fadeOut()).done ()->
         $currentQuestion.remove()
@@ -321,18 +331,17 @@ $ ->
 
 
     _getQuestionProcess = (data)->
-      console.log(data)
       # parse html to text
       text = Lib.strip(data.responseText)
-      # console.log text
       text = "風水:hong-suí" if text.length is 0
       a = text.split(":")
+      # console.log a
       result =
         question : a[0]
         qArr : a[0].split("")
         pArr : a[1].split("-")
         len : a[0].length
-        qIndex : a[0].length-1 # 這裏先暫時都以最後一個字挖空
+        qIndex : Lib.getRandomInt(0,a[0].length-1) # 這裏先暫時都以最後一個字挖空
 
     getQuestion : (callback)->
       $.ajax
@@ -350,12 +359,11 @@ $ ->
         data = "金,天,氣,不,錯,只,是,有,一,點,飄,雨"
         console.warn('getOption no response')
       arr = data.split(',')
-      while arr.indexOf(ans) isnt -1
-        arr.splice(ans, 1);
-      while arr.indexOf("") isnt -1
-        arr.splice("", 1)
+      while (i = arr.indexOf(ans)) isnt -1
+        arr.splice(i, 1)
+      while (i = arr.indexOf("")) isnt -1
+        arr.splice(i, 1)
       arr = arr.slice(0,19)
-      # console.log("_getOptionProcess",arr)
       arr.push(ans) #  push answer to optionList
       return arr
 
@@ -366,9 +374,7 @@ $ ->
         dataType : 'text'
         url: "http://4100a232.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
-          console.info("給後端 http://4100a232.ngrok.io/q/close_pronounce/#{pronounce} 回應",data)
           text = Lib.strip(data.responseText)
-          # console.log('Data.getPronounce',status ,text )
           optionList = _getOptionProcess(text,word)
           callback(optionList) if typeof(callback) is 'function'
         error : ()->
@@ -475,7 +481,7 @@ $ ->
       $('.funcBtn').removeClass('used')
       _funcStatus =
         half : true
-        soundText : true
+        pron : true
         skip : true
 
     _initSubControllers = (_this)->
@@ -542,14 +548,26 @@ $ ->
           # when 'soundText'
           when 'skip'
             Main.nextQuestion()
+          when 'pron'
+            Question.showAnsPron()
           else
             console.warn('沒有處理的提示功能',func)
       return able
 
+    wrongAns:()->
+      Question.showAnsWord()
+      Life.minus(1)
+      setTimeout (()->
+        Main.nextQuestion()
+      ),1500
 
-    minusLife : (amount = 1)->
-      Life.minus(amount)
+    rightAns:()->
+      Question.showAnsWord()
+      Score.addScore(1)
+      setTimeout (()->
 
+        Main.nextQuestion()
+      ),1500
     newGame : ()->
       if not gamming
         THIS.nextQuestion()
@@ -558,8 +576,6 @@ $ ->
         Score.reset()
         gamming = true
 
-    addScore : (amount)->
-      Score.addScore(amount)
 
     checkAnswer:(index)->
       Board.checkAnswer(index)
@@ -584,11 +600,12 @@ $ ->
     if $t.data('hasword') is true
       if Main.checkAnswer($t.data('index'))
         alert('答對了')
-        Main.addScore()
-        Main.nextQuestion()
+        Main.rightAns()
       else
         alert('答錯了')
-        Main.minusLife()
+        Main.wrongAns()
+
+
   $document.on 'click','.funcBtn',()->
     if Main.hint($(@).data('func'))
       $(@).addClass('used')

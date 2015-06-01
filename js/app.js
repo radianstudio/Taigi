@@ -199,7 +199,7 @@
 
     })();
     _Question = (function() {
-      var $question, $sound, Main, _ansPron, _ansWord, _answer, _getHtml, _question;
+      var $question, $sound, Main, _answer, _currentAns, _getHtml, _question;
 
       Main = void 0;
 
@@ -211,9 +211,11 @@
 
       _question = void 0;
 
-      _ansWord = void 0;
-
-      _ansPron = void 0;
+      _currentAns = {
+        _ansWord: void 0,
+        _ansPron: void 0,
+        _ansIndex: void 0
+      };
 
       _getHtml = function(question, pronounce, qIndex) {
         var _html, i, k, len, ref, w;
@@ -230,12 +232,21 @@
         Main = _Main;
       }
 
-      _Question.prototype.showAnsWord = function() {};
+      _Question.prototype.showAnsWord = function() {
+        var $q;
+        return $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord);
+      };
 
-      _Question.prototype.showAnsPron = function() {};
+      _Question.prototype.showAnsPron = function() {
+        var $q;
+        return $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qPron').text(_currentAns._ansPron);
+      };
 
       _Question.prototype.refresQuestion = function(question, pronounce, qIndex, callback) {
         var $currentQuestion;
+        _currentAns._ansIndex = qIndex;
+        _currentAns._ansWord = question.charAt(qIndex);
+        _currentAns._ansPron = pronounce[qIndex];
         $currentQuestion = $question.find('.qWordCon');
         return $.when($currentQuestion.fadeOut()).done(function() {
           $currentQuestion.remove();
@@ -469,7 +480,6 @@
 
       _getQuestionProcess = function(data) {
         var a, result, text;
-        console.log(data);
         text = Lib.strip(data.responseText);
         if (text.length === 0) {
           text = "風水:hong-suí";
@@ -480,7 +490,7 @@
           qArr: a[0].split(""),
           pArr: a[1].split("-"),
           len: a[0].length,
-          qIndex: a[0].length - 1
+          qIndex: Lib.getRandomInt(0, a[0].length - 1)
         };
       };
 
@@ -501,17 +511,17 @@
       };
 
       _getOptionProcess = function(data, ans) {
-        var arr;
+        var arr, i;
         if (data.length === 0) {
           data = "金,天,氣,不,錯,只,是,有,一,點,飄,雨";
           console.warn('getOption no response');
         }
         arr = data.split(',');
-        while (arr.indexOf(ans) !== -1) {
-          arr.splice(ans, 1);
+        while ((i = arr.indexOf(ans)) !== -1) {
+          arr.splice(i, 1);
         }
-        while (arr.indexOf("") !== -1) {
-          arr.splice("", 1);
+        while ((i = arr.indexOf("")) !== -1) {
+          arr.splice(i, 1);
         }
         arr = arr.slice(0, 19);
         arr.push(ans);
@@ -525,7 +535,6 @@
           url: "http://4100a232.ngrok.io/q/close_pronounce/" + pronounce,
           success: function(data, status) {
             var optionList, text;
-            console.info("給後端 http://4100a232.ngrok.io/q/close_pronounce/" + pronounce + " 回應", data);
             text = Lib.strip(data.responseText);
             optionList = _getOptionProcess(text, word);
             if (typeof callback === 'function') {
@@ -660,7 +669,7 @@
         $('.funcBtn').removeClass('used');
         return _funcStatus = {
           half: true,
-          soundText: true,
+          pron: true,
           skip: true
         };
       };
@@ -736,6 +745,9 @@
             case 'skip':
               Main.nextQuestion();
               break;
+            case 'pron':
+              Question.showAnsPron();
+              break;
             default:
               console.warn('沒有處理的提示功能', func);
           }
@@ -743,11 +755,20 @@
         return able;
       };
 
-      GameController.prototype.minusLife = function(amount) {
-        if (amount == null) {
-          amount = 1;
-        }
-        return Life.minus(amount);
+      GameController.prototype.wrongAns = function() {
+        Question.showAnsWord();
+        Life.minus(1);
+        return setTimeout((function() {
+          return Main.nextQuestion();
+        }), 1500);
+      };
+
+      GameController.prototype.rightAns = function() {
+        Question.showAnsWord();
+        Score.addScore(1);
+        return setTimeout((function() {
+          return Main.nextQuestion();
+        }), 1500);
       };
 
       GameController.prototype.newGame = function() {
@@ -758,10 +779,6 @@
           Score.reset();
           return gamming = true;
         }
-      };
-
-      GameController.prototype.addScore = function(amount) {
-        return Score.addScore(amount);
       };
 
       GameController.prototype.checkAnswer = function(index) {
@@ -799,11 +816,10 @@
       if ($t.data('hasword') === true) {
         if (Main.checkAnswer($t.data('index'))) {
           alert('答對了');
-          Main.addScore();
-          return Main.nextQuestion();
+          return Main.rightAns();
         } else {
           alert('答錯了');
-          return Main.minusLife();
+          return Main.wrongAns();
         }
       }
     });
