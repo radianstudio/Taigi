@@ -86,10 +86,15 @@ header{
   @extend .background-element ;
   .qWord{
     font-family: SE !important ;
-    left: 0;
-    font-size: 6em;
+    font-size: 5em;
     font-weight: 500 ;
     padding-top: 30px;
+    display: block;
+  }
+  .qPron {
+    font-family: SE !important ;
+    font-size: 1em;
+    font-weight: 500 ;
 
   }
 }

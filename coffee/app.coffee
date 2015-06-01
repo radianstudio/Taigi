@@ -92,7 +92,7 @@ $ ->
       Main = _Main
       THIS = @
 
-    start : (time = 30)->
+    start : (time = 300)->
       THIS.stop()
       _time = time + 1
       _countLoop()
@@ -122,27 +122,35 @@ $ ->
     _answer = undefined
     _question = undefined
 
-    _getHtml = (question,qIndex)->
+    _ansWord = undefined
+    _ansPron = undefined
+
+    _getHtml = (question,pronounce,qIndex)->
       _html = ""
       for w , i in (question.split(''))
         _html+=
         """
           <div class="circle qWordCon">
-            <span class="qWord">#{if i isnt qIndex then w  else ''}</span>
-            <span class="qPron"></span>
+            <div class="inner">
+              <span class="qWord">#{if i isnt qIndex then w  else '*'}</span>
+              <span class="qPron">#{if i isnt qIndex then pronounce[i]  else '...'}</span>
+            </div>
           </div>
         """
       _html
 
     constructor :(_Main , data)->
       Main = _Main
-    showAnswer:()->
+    showAnsWord:()->
 
-    refresQuestion : (question,qIndex , callback)->
+    showAnsPron:()->
+
+
+    refresQuestion : (question,pronounce,qIndex , callback)->
       $currentQuestion = $question.find('.qWordCon')
       $.when($currentQuestion.fadeOut()).done ()->
         $currentQuestion.remove()
-        $(_getHtml(question,qIndex)).appendTo($question)
+        $(_getHtml(question,pronounce,qIndex)).appendTo($question)
         callback() if typeof(callback) is 'function'
 
 
@@ -169,6 +177,7 @@ $ ->
     constructor : (_Main)->
       Main = _Main
       THIS = @
+
 
     half : ()->
       $ballons = $boardContainer.find('.ballon')
@@ -297,6 +306,7 @@ $ ->
       console.log('prepareQuestion ing ...')
       THIS.getQuestion (Q)->                        #  get question object
         dataToShow.question = Q.question
+        dataToShow.pronounce = Q.pArr
         dataToShow.qIndex = Q.qIndex
         dataToShow.answerWord = Q.qArr[Q.qIndex];              #  get the word which is answer
         THIS.getOptionList dataToShow.answerWord ,Q.pArr[Q.qIndex] , (optionList)->
@@ -356,6 +366,7 @@ $ ->
         dataType : 'text'
         url: "http://4100a232.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
+          console.info("給後端 http://4100a232.ngrok.io/q/close_pronounce/#{pronounce} 回應",data)
           text = Lib.strip(data.responseText)
           # console.log('Data.getPronounce',status ,text )
           optionList = _getOptionProcess(text,word)
@@ -503,7 +514,7 @@ $ ->
         Board.refreshBoard(data.answerWord , data.optionList) ## Board to next round
 
         Audio.refreshSrc(data.audioUrl)
-        Question.refresQuestion data.question, data.qIndex , ()->
+        Question.refresQuestion data.question,data.pronounce, data.qIndex , ()->
           Audio.play()
       else
         console.error "已經沒有準備好的題目了，這不應該發生"

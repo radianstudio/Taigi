@@ -163,7 +163,7 @@
 
       _Time.prototype.start = function(time) {
         if (time == null) {
-          time = 30;
+          time = 300;
         }
         THIS.stop();
         _time = time + 1;
@@ -199,7 +199,7 @@
 
     })();
     _Question = (function() {
-      var $question, $sound, Main, _answer, _getHtml, _question;
+      var $question, $sound, Main, _ansPron, _ansWord, _answer, _getHtml, _question;
 
       Main = void 0;
 
@@ -211,13 +211,17 @@
 
       _question = void 0;
 
-      _getHtml = function(question, qIndex) {
+      _ansWord = void 0;
+
+      _ansPron = void 0;
+
+      _getHtml = function(question, pronounce, qIndex) {
         var _html, i, k, len, ref, w;
         _html = "";
         ref = question.split('');
         for (i = k = 0, len = ref.length; k < len; i = ++k) {
           w = ref[i];
-          _html += "<div class=\"circle qWordCon\">\n  <span class=\"qWord\">" + (i !== qIndex ? w : '') + "</span>\n  <span class=\"qPron\"></span>\n</div>";
+          _html += "<div class=\"circle qWordCon\">\n  <div class=\"inner\">\n    <span class=\"qWord\">" + (i !== qIndex ? w : '*') + "</span>\n    <span class=\"qPron\">" + (i !== qIndex ? pronounce[i] : '...') + "</span>\n  </div>\n</div>";
         }
         return _html;
       };
@@ -226,14 +230,16 @@
         Main = _Main;
       }
 
-      _Question.prototype.showAnswer = function() {};
+      _Question.prototype.showAnsWord = function() {};
 
-      _Question.prototype.refresQuestion = function(question, qIndex, callback) {
+      _Question.prototype.showAnsPron = function() {};
+
+      _Question.prototype.refresQuestion = function(question, pronounce, qIndex, callback) {
         var $currentQuestion;
         $currentQuestion = $question.find('.qWordCon');
         return $.when($currentQuestion.fadeOut()).done(function() {
           $currentQuestion.remove();
-          $(_getHtml(question, qIndex)).appendTo($question);
+          $(_getHtml(question, pronounce, qIndex)).appendTo($question);
           if (typeof callback === 'function') {
             return callback();
           }
@@ -441,6 +447,7 @@
         console.log('prepareQuestion ing ...');
         return THIS.getQuestion(function(Q) {
           dataToShow.question = Q.question;
+          dataToShow.pronounce = Q.pArr;
           dataToShow.qIndex = Q.qIndex;
           dataToShow.answerWord = Q.qArr[Q.qIndex];
           THIS.getOptionList(dataToShow.answerWord, Q.pArr[Q.qIndex], function(optionList) {
@@ -518,6 +525,7 @@
           url: "http://4100a232.ngrok.io/q/close_pronounce/" + pronounce,
           success: function(data, status) {
             var optionList, text;
+            console.info("給後端 http://4100a232.ngrok.io/q/close_pronounce/" + pronounce + " 回應", data);
             text = Lib.strip(data.responseText);
             optionList = _getOptionProcess(text, word);
             if (typeof callback === 'function') {
@@ -697,7 +705,7 @@
           Timer.start();
           Board.refreshBoard(data.answerWord, data.optionList);
           Audio.refreshSrc(data.audioUrl);
-          return Question.refresQuestion(data.question, data.qIndex, function() {
+          return Question.refresQuestion(data.question, data.pronounce, data.qIndex, function() {
             return Audio.play();
           });
         } else {

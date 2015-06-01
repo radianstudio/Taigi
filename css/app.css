@@ -162,24 +162,30 @@ header {
 /* line 87, ../sass/app.scss */
 .qWordCon .qWord {
   font-family: SE !important;
-  left: 0;
-  font-size: 6em;
+  font-size: 5em;
   font-weight: 500;
   padding-top: 30px;
+  display: block;
+}
+/* line 94, ../sass/app.scss */
+.qWordCon .qPron {
+  font-family: SE !important;
+  font-size: 1em;
+  font-weight: 500;
 }
 
-/* line 97, ../sass/app.scss */
+/* line 102, ../sass/app.scss */
 #time {
   text-align: center;
 }
-/* line 99, ../sass/app.scss */
+/* line 104, ../sass/app.scss */
 #time #timeText {
   left: 0;
   font-size: 4em;
   font-weight: 500;
   line-height: 140px;
 }
-/* line 106, ../sass/app.scss */
+/* line 111, ../sass/app.scss */
 #time .soundClickSpan {
   z-index: 4;
   position: absolute;
@@ -189,12 +195,12 @@ header {
   cursor: pointer;
 }
 
-/* line 116, ../sass/app.scss */
+/* line 121, ../sass/app.scss */
 #audio {
   display: none;
 }
 
-/* line 120, ../sass/app.scss */
+/* line 125, ../sass/app.scss */
 #board {
   margin-top: 147px;
   margin-left: auto;
@@ -203,23 +209,23 @@ header {
   width: 80%;
   background-size: contain;
 }
-/* line 129, ../sass/app.scss */
+/* line 134, ../sass/app.scss */
 #board:before {
   padding-top: 38.9%;
 }
 
-/* line 134, ../sass/app.scss */
+/* line 139, ../sass/app.scss */
 #table {
   background-image: url("../img/table.png");
   padding-top: 24%;
   margin-bottom: 20px;
 }
 
-/* line 148, ../sass/app.scss */
+/* line 153, ../sass/app.scss */
 .heart {
   text-align: center;
 }
-/* line 150, ../sass/app.scss */
+/* line 155, ../sass/app.scss */
 .heart .heartCell {
   -moz-transition: opacity 1s ease-in-out;
   -o-transition: opacity 1s ease-in-out;
@@ -227,27 +233,27 @@ header {
   transition: opacity 1s ease-in-out;
   opacity: 1;
 }
-/* line 153, ../sass/app.scss */
+/* line 158, ../sass/app.scss */
 .heart .heartCell.hurt {
   opacity: 0;
 }
-/* line 157, ../sass/app.scss */
+/* line 162, ../sass/app.scss */
 .heart .circle-inner {
   margin-top: 20%;
 }
 
-/* line 165, ../sass/app.scss */
+/* line 170, ../sass/app.scss */
 .circle {
   display: inline-block;
   background-image: url(../img/circle.png);
   width: 140px;
 }
-/* line 171, ../sass/app.scss */
+/* line 176, ../sass/app.scss */
 .circle:before {
   padding-top: 100%;
 }
 
-/* line 177, ../sass/app.scss */
+/* line 182, ../sass/app.scss */
 .ballon {
   background-image: url(../img/br.png);
   background-position: center;
@@ -262,26 +268,26 @@ header {
   -webkit-transition: background-size 0.4s ease-in-out;
   transition: background-size 0.4s ease-in-out;
 }
-/* line 190, ../sass/app.scss */
+/* line 195, ../sass/app.scss */
 .ballon:before {
   content: "";
   padding-top: 150%;
 }
-/* line 196, ../sass/app.scss */
+/* line 201, ../sass/app.scss */
 .ballon:hover {
   background-size: 70% auto !important;
   cursor: pointer;
 }
-/* line 200, ../sass/app.scss */
+/* line 205, ../sass/app.scss */
 .ballon.broke {
   cursor: default;
   background-size: 0% auto !important;
 }
-/* line 203, ../sass/app.scss */
+/* line 208, ../sass/app.scss */
 .ballon.broke span {
   opacity: 0;
 }
-/* line 208, ../sass/app.scss */
+/* line 213, ../sass/app.scss */
 .ballon span {
   font-family: SE !important;
   top: 50% !important;
@@ -298,61 +304,61 @@ header {
   transition: opacity 0.4s ease-in-out;
 }
 
-/* line 219, ../sass/app.scss */
+/* line 224, ../sass/app.scss */
 .ballonCon {
   padding: 50px 10px;
 }
-/* line 220, ../sass/app.scss */
+/* line 225, ../sass/app.scss */
 .ballonCon .col-md-2 {
   width: 10%;
 }
-/* line 222, ../sass/app.scss */
+/* line 227, ../sass/app.scss */
 .ballonCon .col-md-2:nth-child(2n-1) {
   background-image: url(../img/bl.png);
 }
 
-/* line 231, ../sass/app.scss */
+/* line 236, ../sass/app.scss */
 .funcBtn.used {
   visibility: hidden;
 }
 
 /* for modal*/
-/* line 238, ../sass/app.scss */
+/* line 243, ../sass/app.scss */
 .modal {
   border: none;
 }
-/* line 239, ../sass/app.scss */
+/* line 244, ../sass/app.scss */
 .modal * {
   border: 0;
 }
-/* line 242, ../sass/app.scss */
+/* line 247, ../sass/app.scss */
 .modal .modal-content {
   background-image: url(../img/start/bg.png);
   background-size: 100% 100%;
 }
-/* line 246, ../sass/app.scss */
+/* line 251, ../sass/app.scss */
 .modal .modal-dialog {
   width: 90%;
 }
-/* line 251, ../sass/app.scss */
+/* line 256, ../sass/app.scss */
 .modal .img {
   width: 100%;
   display: block;
   margin: auto;
 }
 
-/* line 260, ../sass/app.scss */
+/* line 265, ../sass/app.scss */
 #loseModal #endmodalbar {
   width: 90%;
   margin: auto;
   display: block;
 }
-/* line 265, ../sass/app.scss */
+/* line 270, ../sass/app.scss */
 #loseModal #scoreboard {
   padding-top: 55.8%;
   background-image: url(../img/end/score.png);
 }
-/* line 270, ../sass/app.scss */
+/* line 275, ../sass/app.scss */
 #loseModal #scoreboard .score {
   font-family: SE !important;
   font-size: 5em;
@@ -361,7 +367,7 @@ header {
   padding-top: 100px;
 }
 
-/* line 281, ../sass/app.scss */
+/* line 286, ../sass/app.scss */
 #startModal #startBtn {
   margin-top: 30px;
 }
