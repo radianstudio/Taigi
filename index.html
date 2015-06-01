@@ -2,10 +2,10 @@
 <html>
 
 <head>
-  <script src="http://code.jquery.com/jquery.min.js"></script>
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="js/vendor/jquery-1.11.3.min.js"></script>
+  <link href="css/vendor/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="css/app.css">
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/JSXTransformer.js"></script> -->
@@ -18,22 +18,31 @@
       <div class="row">
         <div class="col-md-2 ">
           <div id="heart" class="heart">
-          <div class="circle">
-            <div class="circle-inner">
-              <img class="heartCell" data-life="1" src="img/h1.png">
-              <img class="heartCell" data-life="2" src="img/h2.png">
-              <img class="heartCell" data-life="3" src="img/h3.png">
-              <img class="heartCell" data-life="4" src="img/h4.png">
-              <img class="heartCell" data-life="5" src="img/h5.png">
+            <div class="circle">
+              <div class="circle-inner">
+                <img class="heartCell" data-life="1" src="img/h1.png">
+                <img class="heartCell" data-life="2" src="img/h2.png">
+                <img class="heartCell" data-life="3" src="img/h3.png">
+                <img class="heartCell" data-life="4" src="img/h4.png">
+                <img class="heartCell" data-life="5" src="img/h5.png">
+              </div>
             </div>
-          </div>
           </div>
         </div>
         <div class="col-md-8">
           <div id="question" class="question">
-            <div class="circle qWordCon"><span class="qWord"></span></div>
-            <div class="circle qWordCon"><span class="qWord"></span></div>
-            <div class="circle qWordCon"><span class="qWord"></span></div>
+            <div class="circle qWordCon">
+              <span class="qWord"></span>
+              <span class="qPron"></span>
+            </div>
+            <div class="circle qWordCon">
+              <span class="qWord"></span>
+              <span class="qPron"></span>
+            </div>
+            <div class="circle qWordCon">
+              <span class="qWord"></span>
+              <span class="qPron"></span>
+            </div>
           </div>
 
         </div>
@@ -47,19 +56,15 @@
                 <img src="img/sound.png" alt="">
               </div>
               <div class="soundClickSpan">
-
               </div>
-
-
-
             </div>
-            <audio  id="sound" controls preload="none">
-              <source id="sound_src"  src="" type="audio/mpeg">
+            <audio id="sound" controls preload="none">
+              <source id="sound_src" src="" type="audio/mpeg">
             </audio>
           </div>
         </div>
-        </div>
       </div>
+    </div>
     </div>
 
   </header>
@@ -68,7 +73,7 @@
     <div id="board">
       <div class="background-inner">
 
-        <div id="ballonCon" class="row ballonCon" >
+        <div id="ballonCon" class="row ballonCon">
           <!-- (.col-md-2>.ballon>span{二})*50-->
           <!-- <div class="col-md-2">
             <div class="ballon"><span>二</span></div>
@@ -77,58 +82,87 @@
       </div>
     </div>
   </article>
-  <div id="table" >
+  <div id="table">
     <div class="container">
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 funcBtnCon">
-        <div class="funcBtn" data-func="half">
-          <img src="img/gg.png">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 funcBtnCon">
+          <div class="funcBtn btn" data-func="half">
+            <img src="img/gg.png">
+          </div>
+          <div class="funcBtn btn" data-func="soundText">
+            <img src="img/gb.png">
+          </div>
+          <div class="funcBtn btn" data-func="skip" data-func="">
+            <img src="img/rg.png">
+          </div>
         </div>
-        <div class="funcBtn" data-func="soundText">
-          <img src="img/gb.png">
-        </div>
-        <div class="funcBtn" data-func="skip" data-func="">
-          <img src="img/rg.png">
-        </div>
+        <div class="col-md-3"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
   </div>
-  </div>
+
+
+  <!-- /.modal -->
 
   <div id="startModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
-
-  </div><!-- /.modal -->
-
-  <div id="loseModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-            <h4 class="modal-title" id="gridSystemModalLabel">遊戲結束了</h4>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <div class="col-md-12">
-                <p><span class="how"></sapn></p></br>
-                <p>你總共答對了<span class="score"></span>題</p>
-
+  	<div class="modal-dialog">
+      <div id="content" class="modal-content">
+        <div class="modal-header">
+          <img src="img/start/title.png" alt="遊戲介紹" id="startModal" class="img">
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="col-md-6">
+              <img src="img/start/screen.png" alt="螢幕圖" id="modalrule" class="img">
+              <div>
+                <img src="img/start/startbutton.png" alt="開始按鈕" id="startBtn" class="btn img">
               </div>
             </div>
+            <div class="col-md-6">
+              <img src="img/start/how.png" alt="規則圖" id="how-to-play" class="img">
+            </div>
           </div>
-          <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-primary restart">重新開始</button>
+        </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </div><!-- /.modal >  -->
+
+
+  <div id="loseModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img id="endmodalbar" src="img/end/endbar.png" alt="分數結算">
+        </div>
+        <div class="modal-body">
+
+          <div class="container-fluid">
+            <div class="col-md-12">
+              <div id="scoreboard">
+                <div class="inner">
+                  <!-- <span class="how"></sapn> -->
+                  <span class="score"></span>
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-  <script type="text/jsx;harmony=true" src="js/app.js"></script>
-
-
-
+        </div>
+        <div class="modal-footer">
+          <div class="col-md-6">
+            <img id="restartBtn" src="img/end/tryagain.png" class="restart btn" alt="">
+          </div>
+          <div class="col-md-6">
+            <img id="endBtn" src="img/end/quitgame.png" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 </body>
 
 

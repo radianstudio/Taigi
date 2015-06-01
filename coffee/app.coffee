@@ -49,7 +49,7 @@ $ ->
 
       THIS.updateView(_life)
 
-    setLife : (life)->
+    setLife : (life = 5)->
       _life = life
       THIS.updateView(_life)
     updateView : (life) ->
@@ -104,7 +104,9 @@ $ ->
 
     timeOut:()->
       THIS.stop()
-      Main.lose('timeout')
+      alert('超過時間！損失一滴血，換一題。')
+      Main.minusLife(1)
+      Main.nextQuestion()
     stop : ()->
       # console.log('t',t)
       if t? then clearTimeout t
@@ -125,7 +127,10 @@ $ ->
       for w , i in (question.split(''))
         _html+=
         """
-          <div class="circle qWordCon"><span class="qWord">#{if i isnt qIndex then w  else ''}</span></div>
+          <div class="circle qWordCon">
+            <span class="qWord">#{if i isnt qIndex then w  else ''}</span>
+            <span class="qPron"></span>
+          </div>
         """
       _html
 
@@ -306,10 +311,11 @@ $ ->
 
 
     _getQuestionProcess = (data)->
+      console.log(data)
       # parse html to text
       text = Lib.strip(data.responseText)
       # console.log text
-
+      text = "風水:hong-suí" if text.length is 0
       a = text.split(":")
       result =
         question : a[0]
@@ -322,7 +328,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType: 'text'
-        url: 'http://14ef3e60.ngrok.io/q/get_question/'
+        url: 'http://4100a232.ngrok.io/q/get_question/'
         success:(data,status)->
           # console.log( "Data.getQuestion", status)
           callback(_getQuestionProcess(data)) if typeof(callback) is 'function'
@@ -330,6 +336,9 @@ $ ->
           console.warn("getQuestion, ajax error",e)
 
     _getOptionProcess = (data,ans)->
+      if data.length is 0
+        data = "金,天,氣,不,錯,只,是,有,一,點,飄,雨"
+        console.warn('getOption no response')
       arr = data.split(',')
       while arr.indexOf(ans) isnt -1
         arr.splice(ans, 1);
@@ -345,11 +354,11 @@ $ ->
       $.ajax
         type: 'get'
         dataType : 'text'
-        url: "http://14ef3e60.ngrok.io/q/close_pronounce/#{pronounce}"
+        url: "http://4100a232.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
           text = Lib.strip(data.responseText)
           # console.log('Data.getPronounce',status ,text )
-          optionList = _getOptionProcess(text,word) ;
+          optionList = _getOptionProcess(text,word)
           callback(optionList) if typeof(callback) is 'function'
         error : ()->
           console.warn("getOptionList , ajax error ",e)
@@ -395,6 +404,7 @@ $ ->
   class _Page
     THIS = undefined
     Main = undefined
+    $startModal = $("#startModal")
     $loseModal = $("#loseModal")
     $winModal = $('#winModal')
 
@@ -402,9 +412,17 @@ $ ->
       $loseModal.modal('hide')
       Main.newGame()
 
+    $(document).on 'click','#startBtn' , ()->
+      Main.newGame()
+      $startModal.modal('hide')
+
     constructor :(_Main)->
       THIS = @
       Main = _Main
+      $('#startBtn').prop('disabled', true)
+      $startModal.modal(
+        'backdrop' : 'static'
+      )
 
       $loseModal.show = (howStr,score)->
         $loseModal.find('.how').text(howStr)
@@ -438,6 +456,7 @@ $ ->
     _funcStatus = {}
 
     questionDataList = []
+    gamming = false
 
     ## view
 
@@ -472,18 +491,22 @@ $ ->
       THIS = @
       _initSubControllers(THIS)
       THIS.prepareQuesiton ()->
-        THIS.nextQuestion()
-      _initFuncStatus()
+        $('#startBtn').prop('disabled',false)
+
 
     nextQuestion : ()->
-      THIS.prepareQuesiton()
-      Timer.start()
-      data = questionDataList.shift()
-      Board.refreshBoard(data.answerWord , data.optionList) ## Board to next round
+      if questionDataList.length isnt 0
+        data = questionDataList.shift()
+        THIS.prepareQuesiton()
+        Timer.start()
 
-      Audio.refreshSrc(data.audioUrl)
-      Question.refresQuestion data.question, data.qIndex , ()->
-        Audio.play()
+        Board.refreshBoard(data.answerWord , data.optionList) ## Board to next round
+
+        Audio.refreshSrc(data.audioUrl)
+        Question.refresQuestion data.question, data.qIndex , ()->
+          Audio.play()
+      else
+        console.error "已經沒有準備好的題目了，這不應該發生"
 
     playSound : ()->
       console.log(Audio)
@@ -517,10 +540,12 @@ $ ->
       Life.minus(amount)
 
     newGame : ()->
-      THIS.nextQuestion()
-      _initFuncStatus()
-      Life.setLife(5)
-      Score.reset()
+      if not gamming
+        THIS.nextQuestion()
+        _initFuncStatus()
+        Life.setLife()
+        Score.reset()
+        gamming = true
 
     addScore : (amount)->
       Score.addScore(amount)
@@ -529,6 +554,7 @@ $ ->
       Board.checkAnswer(index)
 
     lose : (how)->
+      gamming = false
       howStr = undefined
       Timer.stop()
       switch how

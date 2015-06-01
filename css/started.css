@@ -1,0 +1,48 @@
+.modal-content{
+	background-image: url(../img/start/bg.png);
+	background-size: cover ;
+  	background-repeat: no-repeat ;
+  	position: relative ;
+
+	width: 1450px;
+	height: 810px;
+	transform: translate(-30%, 0) !important;
+  	-ms-transform: translate(-30%, 0) !important; /* IE 9 */
+  	-webkit-transform: translate(-30%, 0) !important; /* Safari and Chrome */
+}
+
+#startmodalbar{
+	background-image: url(../img/start/title.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height:100px;
+}
+
+#modalrule{
+	width:700px;
+	height:700px;
+	float:left;
+
+}
+
+#modalscreen{
+	background-image: url(../img/start/screen.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width:100%;
+	height:100%;
+}
+
+.how-to-play{
+	background-image: url(../img/start/how.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#startbutton{
+	background-image:url(../img/start/startbutton.png);
+	width:466px;
+	height:119px;
+	position:absolute; top:470%; left:10%;
+}

@@ -4,9 +4,8 @@
 
 @font-face {
   font-family: SE ;
-  src: url('../font/ChekiangShuKeSung.TTF') ;
+  src: url('../font/ChekiangShuKeSung.TTF');
 }
-
 
 .background-element {
   position:relative ;
@@ -90,7 +89,7 @@ header{
     left: 0;
     font-size: 6em;
     font-weight: 500 ;
-    line-height: 166px;
+    padding-top: 30px;
 
   }
 }
@@ -233,3 +232,65 @@ header{
     visibility: hidden;
   }
 }
+
+/* for modal*/
+
+.modal {
+  * {
+    border: 0 ;
+  }
+  .modal-content{
+    background-image: url(../img/start/bg.png);
+    background-size: 100% 100%;
+  }
+  .modal-dialog{
+    width: 90%;
+  }
+  border: none;
+
+  .img{
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
+}
+
+#loseModal {
+
+  #endmodalbar{
+    width: 90%;
+    margin: auto;
+    display: block;
+  }
+  #scoreboard{
+    @extend .background-element ;
+    padding-top: 55.8%;
+  	background-image: url(../img/end/score.png);
+
+    .score{
+      font-family: SE !important ;
+      font-size: 5em;
+      display: block;
+      padding-left: 70%;
+      padding-top: 100px;
+    }
+  }
+}
+
+#startModal{
+  #startBtn{
+    margin-top:30px;
+  }
+}
+
+
+// #endbutton{
+// 	background-repeat: no-repeat;
+// 	background-position: center;
+// 	width:700px;
+// 	height:200px;
+// 	float:left;
+// 	transform: translate(1.5%, 0) !important;
+//   	-ms-transform: translate(1.5%, 0) !important; /* IE 9 */
+//   	-webkit-transform: translate(1.5%, 0) !important; /* Safari and Chrome */
+// }
