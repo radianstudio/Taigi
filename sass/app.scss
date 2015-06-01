@@ -269,7 +269,7 @@ header{
   }
   #scoreboard{
     @extend .background-element ;
-    padding-top: 55.8%;
+    padding-top: 50.8%;
   	background-image: url(../img/end/score.png);
 
     .score{
@@ -284,6 +284,7 @@ header{
 
 #startModal{
   #startBtn{
+    width: 70% !important;
     margin-top:30px;
   }
 }

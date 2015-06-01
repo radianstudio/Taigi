@@ -355,7 +355,7 @@ header {
 }
 /* line 270, ../sass/app.scss */
 #loseModal #scoreboard {
-  padding-top: 55.8%;
+  padding-top: 50.8%;
   background-image: url(../img/end/score.png);
 }
 /* line 275, ../sass/app.scss */
@@ -369,5 +369,6 @@ header {
 
 /* line 286, ../sass/app.scss */
 #startModal #startBtn {
+  width: 70% !important;
   margin-top: 30px;
 }

@@ -92,7 +92,7 @@ $ ->
       Main = _Main
       THIS = @
 
-    start : (time = 300)->
+    start : (time = 30)->
       THIS.stop()
       _time = time + 1
       _countLoop()
@@ -105,8 +105,7 @@ $ ->
     timeOut:()->
       THIS.stop()
       alert('超過時間！損失一滴血，換一題。')
-      Main.minusLife(1)
-      Main.nextQuestion()
+      Main.wrongAns()
     stop : ()->
       # console.log('t',t)
       if t? then clearTimeout t
@@ -116,6 +115,7 @@ $ ->
 
 
   class _Question
+    THIS = undefined
     Main = undefined
     $question = $('#question')
     $sound = $('#sound')
@@ -143,9 +143,10 @@ $ ->
 
     constructor :(_Main , data)->
       Main = _Main
+      THIS = @
     showAnsWord:()->
       $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord)
-
+      THIS.showAnsPron()
     showAnsPron:()->
       $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qPron').text(_currentAns._ansPron)
 
@@ -436,7 +437,7 @@ $ ->
     constructor :(_Main)->
       THIS = @
       Main = _Main
-      $('#startBtn').prop('disabled', true)
+      $('#startBtn').css('opacity',.7).prop('disabled', true)
       $startModal.modal(
         'backdrop' : 'static'
       )
@@ -497,18 +498,18 @@ $ ->
 
 
     prepareQuesiton : (wellPreparedCallback)->
+      if wellPreparedCallback? and questionDataList.length is 1
+        wellPreparedCallback()
       if questionDataList.length < 2
         Data.prepareQuestion (dataToShow)->
           questionDataList.push(dataToShow)
           THIS.prepareQuesiton(wellPreparedCallback)
-      else if questionDataList.length >= 2
-        # console.log("wellPreparedCallback",wellPreparedCallback)
-        wellPreparedCallback() if wellPreparedCallback?
+
     constructor : ()->
       THIS = @
       _initSubControllers(THIS)
       THIS.prepareQuesiton ()->
-        $('#startBtn').prop('disabled',false)
+        $('#startBtn').css('opacity',1).prop('disabled',false)
 
 
     nextQuestion : ()->
@@ -565,7 +566,6 @@ $ ->
       Question.showAnsWord()
       Score.addScore(1)
       setTimeout (()->
-
         Main.nextQuestion()
       ),1500
     newGame : ()->
@@ -604,7 +604,6 @@ $ ->
       else
         alert('答錯了')
         Main.wrongAns()
-
 
   $document.on 'click','.funcBtn',()->
     if Main.hint($(@).data('func'))

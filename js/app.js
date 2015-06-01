@@ -163,7 +163,7 @@
 
       _Time.prototype.start = function(time) {
         if (time == null) {
-          time = 300;
+          time = 30;
         }
         THIS.stop();
         _time = time + 1;
@@ -181,8 +181,7 @@
       _Time.prototype.timeOut = function() {
         THIS.stop();
         alert('超過時間！損失一滴血，換一題。');
-        Main.minusLife(1);
-        return Main.nextQuestion();
+        return Main.wrongAns();
       };
 
       _Time.prototype.stop = function() {
@@ -199,7 +198,9 @@
 
     })();
     _Question = (function() {
-      var $question, $sound, Main, _answer, _currentAns, _getHtml, _question;
+      var $question, $sound, Main, THIS, _answer, _currentAns, _getHtml, _question;
+
+      THIS = void 0;
 
       Main = void 0;
 
@@ -230,11 +231,13 @@
 
       function _Question(_Main, data) {
         Main = _Main;
+        THIS = this;
       }
 
       _Question.prototype.showAnsWord = function() {
         var $q;
-        return $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord);
+        $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord);
+        return THIS.showAnsPron();
       };
 
       _Question.prototype.showAnsPron = function() {
@@ -617,7 +620,7 @@
       function _Page(_Main) {
         THIS = this;
         Main = _Main;
-        $('#startBtn').prop('disabled', true);
+        $('#startBtn').css('opacity', .7).prop('disabled', true);
         $startModal.modal({
           'backdrop': 'static'
         });
@@ -686,15 +689,14 @@
       };
 
       GameController.prototype.prepareQuesiton = function(wellPreparedCallback) {
+        if ((wellPreparedCallback != null) && questionDataList.length === 1) {
+          wellPreparedCallback();
+        }
         if (questionDataList.length < 2) {
           return Data.prepareQuestion(function(dataToShow) {
             questionDataList.push(dataToShow);
             return THIS.prepareQuesiton(wellPreparedCallback);
           });
-        } else if (questionDataList.length >= 2) {
-          if (wellPreparedCallback != null) {
-            return wellPreparedCallback();
-          }
         }
       };
 
@@ -702,7 +704,7 @@
         THIS = this;
         _initSubControllers(THIS);
         THIS.prepareQuesiton(function() {
-          return $('#startBtn').prop('disabled', false);
+          return $('#startBtn').css('opacity', 1).prop('disabled', false);
         });
       }
 
