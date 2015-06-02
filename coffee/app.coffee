@@ -33,23 +33,24 @@ $ ->
       return
 
   class _Life
+    DEFAULT_LIFE = 5
     Main = undefined
     THIS = undefined
     _max = 5
     _life = undefined
     $heart = $("#heart")
 
-    constructor : (_Main , life = 5)->
+    constructor : (_Main , life = DEFAULT_LIFE)->
       Main = _Main
       THIS = @
       _life = life
       THIS.updateView(_life)
     minus : (num = 1)->
       _life -= num
-
       THIS.updateView(_life)
+      return _life
 
-    setLife : (life = 5)->
+    setLife : (life = DEFAULT_LIFE)->
       _life = life
       THIS.updateView(_life)
     updateView : (life) ->
@@ -107,7 +108,7 @@ $ ->
       alert('超過時間！損失一滴血，換一題。')
       Main.wrongAns()
     stop : ()->
-      # console.log('t',t)
+      console.log('stop timer',t)
       if t? then clearTimeout t
       # console.log(t)
     remainTime :()->
@@ -556,11 +557,13 @@ $ ->
       return able
 
     wrongAns:()->
+      Timer.stop()
       Question.showAnsWord()
-      Life.minus(1)
-      setTimeout (()->
-        Main.nextQuestion()
-      ),1500
+      life = Life.minus(1)
+      if life isnt 0
+        setTimeout (()->
+          Main.nextQuestion()
+        ),1500
 
     rightAns:()->
       Question.showAnsWord()

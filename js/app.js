@@ -66,7 +66,9 @@
 
     })();
     _Life = (function() {
-      var $heart, Main, THIS, _life, _max;
+      var $heart, DEFAULT_LIFE, Main, THIS, _life, _max;
+
+      DEFAULT_LIFE = 5;
 
       Main = void 0;
 
@@ -80,7 +82,7 @@
 
       function _Life(_Main, life) {
         if (life == null) {
-          life = 5;
+          life = DEFAULT_LIFE;
         }
         Main = _Main;
         THIS = this;
@@ -93,12 +95,13 @@
           num = 1;
         }
         _life -= num;
-        return THIS.updateView(_life);
+        THIS.updateView(_life);
+        return _life;
       };
 
       _Life.prototype.setLife = function(life) {
         if (life == null) {
-          life = 5;
+          life = DEFAULT_LIFE;
         }
         _life = life;
         return THIS.updateView(_life);
@@ -185,6 +188,7 @@
       };
 
       _Time.prototype.stop = function() {
+        console.log('stop timer', t);
         if (t != null) {
           return clearTimeout(t);
         }
@@ -758,11 +762,15 @@
       };
 
       GameController.prototype.wrongAns = function() {
+        var life;
+        Timer.stop();
         Question.showAnsWord();
-        Life.minus(1);
-        return setTimeout((function() {
-          return Main.nextQuestion();
-        }), 1500);
+        life = Life.minus(1);
+        if (life !== 0) {
+          return setTimeout((function() {
+            return Main.nextQuestion();
+          }), 1500);
+        }
       };
 
       GameController.prototype.rightAns = function() {
