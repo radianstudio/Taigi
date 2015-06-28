@@ -1,7 +1,7 @@
 $ ->
 
   PARAM =
-    TIME : 6 # defalut timer count
+    TIME : 30 # defalut timer count
     LIFE : 5
   class _Lib
     constructor :()->
