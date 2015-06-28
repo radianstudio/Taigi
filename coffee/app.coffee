@@ -69,6 +69,20 @@ $ ->
                 done = true
           $h.toggleClass('hurt',true)
 
+  class _Text
+
+    Main = undefined
+    bigNumArr = ["零","壹","貳","叄","肆","伍","陸","柒","捌","玖","拾"]
+    constructor : (_Main)->
+      Main = _Main
+
+    getBigNum : (num)->
+      str = num.toString()
+      arr = str.split()
+
+
+
+
 
   class _Time
     Main = undefined
@@ -106,6 +120,7 @@ $ ->
     timeOut:()->
       THIS.stop()
       alert('超過時間！損失一滴血，換一題。')
+
       Main.wrongAns()
     stop : ()->
       console.log('stop timer',t)
@@ -247,17 +262,25 @@ $ ->
   class _Audio
     Main = undefined
     $audio = $("#sound")
+    $o = $("#audio_o")
+    $x = $("#audio_x")
     $audioSrc = $("#sound_src")
     constructor:(_Main)->
       Main = _Main
+      $o[0].load()
+      $x[0].load()
 
     refreshSrc : (url)->
       $audioSrc.attr('src',url)
       $audio[0].pause()
       $audio[0].load()
 
-    play:()->
-      $audio[0].play()
+    play:(what)->
+      switch what
+        when "question" then $audio[0].play()
+        when "o" then $o[0].play()
+        when "x" then $x[0].play()
+
 
     checkSrc : -> $audioSrc.attr('src').length > 3
 
@@ -349,7 +372,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType: 'text'
-        url: 'http://8f518591.ngrok.io/q/get_question/'
+        url: 'http://2b4db149.ngrok.io/q/get_question/'
         success:(data,status)->
           # console.log( "Data.getQuestion", status)
           callback(_getQuestionProcess(data)) if typeof(callback) is 'function'
@@ -374,7 +397,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType : 'text'
-        url: "http://8f518591.ngrok.io/q/close_pronounce/#{pronounce}"
+        url: "http://2b4db149.ngrok.io/q/close_pronounce/#{pronounce}"
         success:(data,status)->
           text = Lib.strip(data.responseText)
           optionList = _getOptionProcess(text,word)
@@ -523,14 +546,14 @@ $ ->
 
         Audio.refreshSrc(data.audioUrl)
         Question.refresQuestion data.question,data.pronounce, data.qIndex , ()->
-          Audio.play()
+          Audio.play("question")
       else
         console.error "已經沒有準備好的題目了，這不應該發生"
 
     playSound : ()->
       console.log(Audio)
       if Audio.checkSrc()
-        Audio.play()
+        Audio.play("question")
         return true
       else
         return false
@@ -558,6 +581,7 @@ $ ->
 
     wrongAns:()->
       Timer.stop()
+      Audio.play("x")
       Question.showAnsWord()
       life = Life.minus(1)
       if life isnt 0
@@ -567,6 +591,7 @@ $ ->
 
     rightAns:()->
       Question.showAnsWord()
+      Audio.play("o")
       Score.addScore(1)
       setTimeout (()->
         Main.nextQuestion()
@@ -602,10 +627,11 @@ $ ->
     $t.addClass('broke')
     if $t.data('hasword') is true
       if Main.checkAnswer($t.data('index'))
-        alert('答對了')
+        # alert('答對了')
         Main.rightAns()
+
       else
-        alert('答錯了')
+        # alert('答錯了')
         Main.wrongAns()
 
   $document.on 'click','.funcBtn',()->
