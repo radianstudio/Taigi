@@ -2,7 +2,7 @@
   $(function() {
     var GameController, Lib, Main, PARAM, _Audio, _Board, _Data, _Lib, _Life, _Page, _Question, _Score, _Time;
     PARAM = {
-      TIME: 6,
+      TIME: 30,
       LIFE: 5
     };
     _Lib = (function() {
