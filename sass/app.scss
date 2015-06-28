@@ -7,9 +7,7 @@
   src: url('../font/ChekiangShuKeSung.TTF');
 }
 
-.result_effect {
-  display: 
-}
+
 .background-element {
   position:relative ;
   background-size: 100% ;
@@ -43,6 +41,23 @@
   }
 }
 
+#result-effect {
+  position: fixed;
+  z-index: 1;
+
+  #o , #x , #timeup{
+    position: absolute;
+    display: none;
+    width: 34vw;
+    top : 50vh ;
+    left: 50vw ;
+    margin-top: -17vw;
+    margin-left: -17vw;
+    .show {
+      display: block;
+    }
+  }
+}
 
 body {
   background: url(../img/bg.png);
@@ -81,14 +96,26 @@ header{
 }
 #game {
   position: relative;
+}
 
-  #hint {
+#hint {
+  position: absolute;
+  right: 0;
+  top:400px;
+  img {
+    width: 150px;
+  }
+  span.round {
     position: absolute;
-    right: 0;
-    bottom: 20px;
-    img {
-      width: 150px;
-    }
+    width: 100% ;
+    padding-top: 20px;
+    text-align: center;
+
+    font-family: SE !important ;
+    font-size: 1.5em;
+    font-weight: 500 ;
+    padding-left: 16px;
+
   }
 }
 
@@ -98,14 +125,19 @@ header{
 .question {
   text-align: center;
 }
+.red {
+  color : red ;
+}
 .qWordCon{
   @extend .background-element ;
+
   .qWord{
     font-family: SE !important ;
     font-size: 5em;
     font-weight: 500 ;
     padding-top: 30px;
     display: block;
+
   }
   .qPron {
     font-family: SE !important ;
@@ -156,9 +188,9 @@ header{
   background-image: url("../img/table.png");
   @extend .background-element ;
 
-  padding-top: 24%;
-  margin-bottom: 20px;
-
+  padding-top: 17%;
+  margin-top: 20px;
+  width: 80%;
 }
 
 
@@ -166,7 +198,9 @@ header{
 
 .funcBtnCon {
   @extend .justifyCon ;
+  padding-top: 20px;
 }
+
 .heart {
   text-align: center ;
   .heartCell{
@@ -245,13 +279,16 @@ header{
       background-image: url(../img/bl.png) ;
     }
   }
-
   padding: 50px 10px ;
 }
 
 .funcBtn {
   &.used{
     visibility: hidden;
+  }
+  width: 120px;
+  img {
+    width: 100% ;
   }
 }
 
@@ -293,8 +330,21 @@ header{
       font-family: SE !important ;
       font-size: 5em;
       display: block;
-      padding-left: 70%;
-      padding-top: 100px;
+      padding-left: 300px;
+      text-align: center;
+      padding-right: 50px;
+
+      padding-top: 50px;
+
+    }
+    .round {
+      font-family: SE !important ;
+      padding-top: 65px;
+      font-size: 5em;
+      padding-left: 300px;
+      text-align: center;
+      padding-right: 50px;
+      display: block;
     }
   }
 }

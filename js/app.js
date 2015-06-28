@@ -1,6 +1,10 @@
 (function() {
   $(function() {
-    var $document, GameController, Lib, Main, _Audio, _Board, _Data, _Lib, _Life, _Page, _Question, _Score, _Text, _Time;
+    var GameController, Lib, Main, PARAM, _Audio, _Board, _Data, _Lib, _Life, _Page, _Question, _Score, _Time;
+    PARAM = {
+      TIME: 6,
+      LIFE: 5
+    };
     _Lib = (function() {
       function _Lib() {}
 
@@ -33,11 +37,15 @@
 
     })();
     _Score = (function() {
-      var Main, score;
+      var Main, accumulate, addRound, addScore, round, score;
 
       Main = void 0;
 
       score = void 0;
+
+      round = void 0;
+
+      accumulate = 1;
 
       function _Score(_Main, initScore) {
         if (initScore == null) {
@@ -45,21 +53,41 @@
         }
         Main = _Main;
         score = initScore;
+        round = 0;
       }
 
       _Score.prototype.reset = function() {
+        accumulate = 1;
         score = 0;
+        round = 0;
+      };
+
+      _Score.prototype.getRound = function() {
+        return round;
       };
 
       _Score.prototype.getScore = function() {
         return score;
       };
 
-      _Score.prototype.addScore = function(amount) {
+      addScore = function(amount) {
         if (amount == null) {
           amount = 1;
         }
         score += amount;
+        console.log("score :" + score);
+      };
+
+      addRound = function(amount) {
+        if (amount == null) {
+          amount = 1;
+        }
+        round += amount;
+      };
+
+      _Score.prototype.win = function() {
+        addScore(accumulate++);
+        return addRound();
       };
 
       return _Score;
@@ -134,26 +162,6 @@
       return _Life;
 
     })();
-    _Text = (function() {
-      var Main, bigNumArr;
-
-      Main = void 0;
-
-      bigNumArr = ["零", "壹", "貳", "叄", "肆", "伍", "陸", "柒", "捌", "玖", "拾"];
-
-      function _Text(_Main) {
-        Main = _Main;
-      }
-
-      _Text.prototype.getBigNum = function(num) {
-        var arr, str;
-        str = num.toString();
-        return arr = str.split();
-      };
-
-      return _Text;
-
-    })();
     _Time = (function() {
       var $timeTextView, $timeView, Main, THIS, _countLoop, _time, t;
 
@@ -172,9 +180,13 @@
       _countLoop = function() {
         _time = _time - 1;
         $timeTextView.text(_time);
+        console.log(_time);
         if (_time === 0) {
-          THIS.timeOut();
+          Main.timeout();
         } else {
+          if (_time === 5) {
+            Main.timing();
+          }
           t = setTimeout(_countLoop, 1000);
         }
       };
@@ -186,11 +198,12 @@
 
       _Time.prototype.start = function(time) {
         if (time == null) {
-          time = 30;
+          time = PARAM.TIME;
         }
         THIS.stop();
         _time = time + 1;
-        return _countLoop();
+        _countLoop();
+        return $("#timeText").removeClass("red");
       };
 
       _Time.prototype.reStart = function(time) {
@@ -199,12 +212,6 @@
         }
         THIS.stop();
         return _countLoop();
-      };
-
-      _Time.prototype.timeOut = function() {
-        THIS.stop();
-        alert('超過時間！損失一滴血，換一題。');
-        return Main.wrongAns();
       };
 
       _Time.prototype.stop = function() {
@@ -248,7 +255,7 @@
         ref = question.split('');
         for (i = k = 0, len = ref.length; k < len; i = ++k) {
           w = ref[i];
-          _html += "<div class=\"circle qWordCon\">\n  <div class=\"inner\">\n    <span class=\"qWord\">" + (i !== qIndex ? w : '*') + "</span>\n    <span class=\"qPron\">" + (i !== qIndex ? pronounce[i] : '...') + "</span>\n  </div>\n</div>";
+          _html += "<div class=\"circle qWordCon qWordConAns\">\n  <div class=\"inner\">\n    <span class=\"qWord\">" + (i !== qIndex ? w : '*') + "</span>\n    <span class=\"qPron\">" + (i !== qIndex ? pronounce[i] : '...') + "</span>\n  </div>\n</div>";
         }
         return _html;
       };
@@ -260,13 +267,13 @@
 
       _Question.prototype.showAnsWord = function() {
         var $q;
-        $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord);
+        $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qWord').text(_currentAns._ansWord).addClass("red");
         return THIS.showAnsPron();
       };
 
       _Question.prototype.showAnsPron = function() {
         var $q;
-        return $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qPron').text(_currentAns._ansPron);
+        return $q = $(".qWordCon").eq(_currentAns._ansIndex).find('.qPron').text(_currentAns._ansPron).addClass("red");
       };
 
       _Question.prototype.refresQuestion = function(question, pronounce, qIndex, callback) {
@@ -391,7 +398,7 @@
 
     })();
     _Audio = (function() {
-      var $audio, $audioSrc, $o, $x, Main;
+      var $audio, $audioSrc, $o, $timeup, $x, Main;
 
       Main = void 0;
 
@@ -400,6 +407,8 @@
       $o = $("#audio_o");
 
       $x = $("#audio_x");
+
+      $timeup = $("#audio_t");
 
       $audioSrc = $("#sound_src");
 
@@ -423,7 +432,30 @@
             return $o[0].play();
           case "x":
             return $x[0].play();
+          case "timing":
+            $timeup[0].currentTime = 3;
+            return $timeup[0].play();
         }
+      };
+
+      _Audio.prototype.stop = function(what) {
+        var audio;
+        audio = void 0;
+        switch (what) {
+          case "question":
+            audio = $audio[0];
+            break;
+          case "o":
+            audio = $o[0];
+            break;
+          case "x":
+            audio = $x[0];
+            break;
+          case "timing":
+            audio = $timeup[0];
+        }
+        audio.pause();
+        return audio.currentTime = 0;
       };
 
       _Audio.prototype.checkSrc = function() {
@@ -489,9 +521,12 @@
       _Data.prototype.prepareQuestion = function(callback) {
         var _return, dataToShow;
         dataToShow = {};
-        _return = function() {
-          if ((callback != null) && (dataToShow.optionList != null) && (dataToShow.audioUrl != null)) {
-            console.info('prepareQuestion success', dataToShow.question, dataToShow.audioUrl);
+        _return = function(abandon) {
+          if (abandon) {
+            console.warn("兩個聲音引擎都抓不到，跳過此題！");
+            return callback(false);
+          } else if ((callback != null) && (dataToShow.optionList != null) && (dataToShow.audioUrl != null)) {
+            console.info('取得題目', dataToShow.question, dataToShow.audioUrl);
             return callback(dataToShow);
           }
         };
@@ -508,12 +543,22 @@
             dataToShow.optionList = optionList;
             return _return();
           });
-          return THIS.getMp3(Q.question, function(url) {
-            if (url.length < 2) {
-              console.warn("抓不到[" + Q.question + "]的發音Mp3", dataToShow.audioUrl);
+          return THIS.getMp3New(Q.question, function(url) {
+            if (url.length > 2) {
+              dataToShow.audioUrl = url;
+              return _return();
+            } else {
+              console.warn("抓不到新引擎[" + Q.question + "]的發音 Mp3");
+              return THIS.getMp3(Q.question, function(url) {
+                if (url.length < 2) {
+                  console.warn("抓不到[" + Q.question + "]的發音Mp3", dataToShow.audioUrl);
+                  return _return(true);
+                } else {
+                  dataToShow.audioUrl = url;
+                  return _return();
+                }
+              });
             }
-            dataToShow.audioUrl = url;
-            return _return();
           });
         });
       };
@@ -618,6 +663,28 @@
         });
       };
 
+      _Data.prototype.getMp3New = function(word, callback) {
+        var url;
+        url = 'http://2b4db149.ngrok.io/game/music/' + encodeURIComponent(word) + '.wav';
+        return $.ajax({
+          type: 'get',
+          dataType: 'text',
+          url: url,
+          error: function(error) {
+            return console.warn("getMp3New , ajax error", error);
+          },
+          success: function(data, status) {
+            console.log("Data.getMp3New", status);
+            console.log("Data.getMp3New", 'url', url, data);
+            if (data.responseText.length > 6) {
+              return callback(url);
+            } else {
+              return callback("");
+            }
+          }
+        });
+      };
+
       _getMp3Process = function(data) {
         var pos_head, pos_tail, str, url;
         str = data.responseText;
@@ -632,7 +699,7 @@
 
     })();
     _Page = (function() {
-      var $loseModal, $startModal, $winModal, Main, THIS;
+      var $loseModal, $round, $startModal, $winModal, Main, THIS, bigNumArr, getBigNum;
 
       THIS = void 0;
 
@@ -643,6 +710,8 @@
       $loseModal = $("#loseModal");
 
       $winModal = $('#winModal');
+
+      $round = $("#hint > span.round");
 
       $(document).on('click', '#loseModal .restart', function() {
         $loseModal.modal('hide');
@@ -661,15 +730,35 @@
         $startModal.modal({
           'backdrop': 'static'
         });
-        $loseModal.show = function(howStr, score) {
+        $loseModal.show = function(howStr, score, round) {
           $loseModal.find('.how').text(howStr);
           $loseModal.find('.score').text(score);
+          $loseModal.find('.round').text(round);
           return $loseModal.modal({
             'backdrop': 'static',
             'keyboard': false
           });
         };
       }
+
+      bigNumArr = ["零", "壹", "貳", "叄", "肆", "伍", "陸", "柒", "捌", "玖", "拾"];
+
+      getBigNum = function(num) {
+        var arr, k, len, str, strArr, v;
+        str = num.toString();
+        arr = str.split('');
+        console.log(arr);
+        strArr = [];
+        for (k = 0, len = arr.length; k < len; k++) {
+          v = arr[k];
+          strArr.push(bigNumArr[v]);
+        }
+        return strArr.join("");
+      };
+
+      _Page.prototype.showRound = function(round) {
+        return $round.text(getBigNum(round));
+      };
 
       _Page.prototype.$winModal = $winModal;
 
@@ -679,7 +768,7 @@
 
     })();
     GameController = (function() {
-      var Audio, Board, Data, Life, Page, Question, Score, THIS, Timer, _funcStatus, _initFuncStatus, _initSubControllers, gamming, questionDataList;
+      var $document, Audio, Board, Data, Life, Page, Question, Score, THIS, Timer, _funcStatus, _initFuncStatus, _initSubControllers, _status, gamming, questionDataList;
 
       THIS = void 0;
 
@@ -705,6 +794,11 @@
 
       gamming = false;
 
+      _status = {
+        round: 1,
+        prepared: true
+      };
+
       _initFuncStatus = function() {
         $('.funcBtn').removeClass('used');
         return _funcStatus = {
@@ -722,7 +816,9 @@
         Timer = new _Time(_this);
         Life = new _Life(_this);
         Score = new _Score(_this);
-        return Page = new _Page(_this);
+        Page = new _Page(_this);
+        THIS.Audio = Audio;
+        return THIS.Page = Page;
       };
 
       GameController.prototype.prepareQuesiton = function(wellPreparedCallback) {
@@ -731,7 +827,9 @@
         }
         if (questionDataList.length < 2) {
           return Data.prepareQuestion(function(dataToShow) {
-            questionDataList.push(dataToShow);
+            if (dataToShow) {
+              questionDataList.push(dataToShow);
+            }
             return THIS.prepareQuesiton(wellPreparedCallback);
           });
         }
@@ -746,15 +844,19 @@
       }
 
       GameController.prototype.nextQuestion = function() {
-        var data;
+        var data, round;
+        round = _status.round;
         if (questionDataList.length !== 0) {
           data = questionDataList.shift();
           THIS.prepareQuesiton();
           Timer.start();
           Board.refreshBoard(data.answerWord, data.optionList);
+          console.log("Main..round " + round);
+          Page.showRound(_status.round++);
           Audio.refreshSrc(data.audioUrl);
           return Question.refresQuestion(data.question, data.pronounce, data.qIndex, function() {
-            return Audio.play("question");
+            Audio.play("question");
+            return _status.prepared = true;
           });
         } else {
           return console.error("已經沒有準備好的題目了，這不應該發生");
@@ -782,6 +884,7 @@
               Board.half();
               break;
             case 'skip':
+              Timer.stop();
               Main.nextQuestion();
               break;
             case 'pron':
@@ -794,33 +897,59 @@
         return able;
       };
 
+      GameController.prototype.timing = function() {
+        Audio.play("timing");
+        return $("#timeText").addClass("red");
+      };
+
+      GameController.prototype.timeout = function() {
+        var life;
+        Timer.stop();
+        Question.showAnsWord();
+        Audio.play("x");
+        $("#timeup").fadeIn();
+        life = Life.minus(1);
+        return setTimeout((function() {
+          if (life !== 0) {
+            Main.nextQuestion();
+          }
+          return $("#timeup").fadeOut();
+        }), 1500);
+      };
+
       GameController.prototype.wrongAns = function() {
         var life;
         Timer.stop();
         Audio.play("x");
         Question.showAnsWord();
+        $("#x").fadeIn();
         life = Life.minus(1);
-        if (life !== 0) {
-          return setTimeout((function() {
-            return Main.nextQuestion();
-          }), 1500);
-        }
+        return setTimeout((function() {
+          if (life !== 0) {
+            Main.nextQuestion();
+          }
+          return $("#x").fadeOut();
+        }), 1500);
       };
 
       GameController.prototype.rightAns = function() {
+        Timer.stop();
         Question.showAnsWord();
         Audio.play("o");
-        Score.addScore(1);
+        $("#o").fadeIn();
+        Score.win();
         return setTimeout((function() {
+          $("#o").fadeOut();
           return Main.nextQuestion();
         }), 1500);
       };
 
       GameController.prototype.newGame = function() {
         if (!gamming) {
+          _status.round = 1;
           THIS.nextQuestion();
           _initFuncStatus();
-          Life.setLife();
+          Life.setLife(PARAM.LIFE);
           Score.reset();
           return gamming = true;
         }
@@ -842,42 +971,57 @@
           case 'timeout':
             howStr = "你沒有在時間內完成答題..";
         }
-        return Page.$loseModal.show(howStr, Score.getScore());
+        return Page.$loseModal.show(howStr, Score.getScore(), Score.getRound());
       };
+
+      $document = $(document);
+
+      $document.on('click', '.ballon', function() {
+        var $t;
+        if (_status.prepared === false) {
+          return;
+        }
+        _status.prepared = false;
+        $t = $(this);
+        if ($t.hasClass('broke')) {
+          return false;
+        }
+        $t.addClass('broke');
+        Audio.stop("timing");
+        if ($t.data('hasword') === true) {
+          if (Main.checkAnswer($t.data('index'))) {
+            return Main.rightAns();
+          } else {
+            return Main.wrongAns();
+          }
+        }
+      });
+
+      $document.on('click', '.funcBtn', function() {
+        if (_status.prepared === false) {
+          return;
+        }
+        if (Main.hint($(this).data('func'))) {
+          return $(this).addClass('used');
+        } else {
+          return alert('這功能你已經用過了喔');
+        }
+      });
+
+      $document.on('click', '.soundClickSpan', function() {
+        if (_status.prepared === false) {
+          return;
+        }
+        if (!Main.playSound()) {
+          return alert('後端抓不到發音的音訊');
+        }
+      });
 
       return GameController;
 
     })();
     Lib = new _Lib();
-    Main = new GameController();
-    $document = $(document);
-    $document.on('click', '.ballon', function() {
-      var $t;
-      $t = $(this);
-      if ($t.hasClass('broke')) {
-        return false;
-      }
-      $t.addClass('broke');
-      if ($t.data('hasword') === true) {
-        if (Main.checkAnswer($t.data('index'))) {
-          return Main.rightAns();
-        } else {
-          return Main.wrongAns();
-        }
-      }
-    });
-    $document.on('click', '.funcBtn', function() {
-      if (Main.hint($(this).data('func'))) {
-        return $(this).addClass('used');
-      } else {
-        return alert('這功能你已經用過了喔');
-      }
-    });
-    return $document.on('click', '.soundClickSpan', function() {
-      if (!Main.playSound()) {
-        return alert('後端抓不到發音的音訊');
-      }
-    });
+    return Main = new GameController();
   });
 
 }).call(this);

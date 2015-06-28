@@ -76,13 +76,21 @@
     <audio id="audio_x" preload="auto">
       <source  src="audio/x.wav" type="audio/wav">
     </audio>
+    <audio id="audio_t" preload="auto">
+      <source  src="audio/timing.mp3" type="audio/wav">
+    </audio>
   </div>
 
-  <div id="effect" class="container">
-    <img src="img/effect/o.png" alt="正解" class="result_effect">
-    <img src="img/effect/x.png" alt="答錯" class="result_effect">
+  <div id="result-effect" class="container">
+    <img id="o" src="img/effect/o.png" alt="正解" class="result_effect">
+    <img id="x" src="img/effect/x.png" alt="答錯" class="result_effect">
+    <img id="timeup" src="img/effect/timeup.png" alt="終了" class="result_effect">
   </div>
 
+  <div id="hint">
+    <span class="round">壹</span>
+    <img src="img/hint/hint_t.png" alt="第x關">
+  </div>
   <article id="game" class="container">
     <div id="board">
       <div class="background-inner" >
@@ -95,12 +103,10 @@
         </div>
       </div>
     </div>
-    <div id="hint">
-      <img src="img/hint/hint_t.png" alt="">
-    </div>
+
   </article>
-  <div id="table">
-    <div class="container">
+  <!-- <div id="table"> -->
+    <div id="table" class="container">
       <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6 funcBtnCon">
@@ -117,7 +123,7 @@
         <div class="col-md-3"></div>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
 
   <!-- /.modal -->
@@ -159,6 +165,7 @@
               <div id="scoreboard">
                 <div class="inner">
                   <!-- <span class="how"></sapn> -->
+                  <span class="round"></span>
                   <span class="score"></span>
                 </div>
               </div>
