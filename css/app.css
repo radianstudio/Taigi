@@ -67,18 +67,23 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: SE;
   src: url("../font/ChekiangShuKeSung.TTF");
 }
-/* line 11, ../sass/app.scss */
+/* line 10, ../sass/app.scss */
+body * {
+  cursor: url(../img/cursor.png) 25 25, auto !important;
+}
+
+/* line 14, ../sass/app.scss */
 .background-element, .qWordCon, #board, #table, .circle, .ballon, #loseModal #scoreboard {
   position: relative;
   background-size: 100%;
   background-repeat: no-repeat;
 }
-/* line 15, ../sass/app.scss */
+/* line 18, ../sass/app.scss */
 .background-element:before, .qWordCon:before, #board:before, #table:before, .circle:before, .ballon:before, #loseModal #scoreboard:before {
   content: "";
   display: block;
 }
-/* line 19, ../sass/app.scss */
+/* line 22, ../sass/app.scss */
 .background-element > *:first-of-type, .qWordCon > *:first-of-type, #board > *:first-of-type, #table > *:first-of-type, .circle > *:first-of-type, .ballon > *:first-of-type, #loseModal #scoreboard > *:first-of-type {
   top: 0;
   position: absolute;
@@ -86,34 +91,34 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   margin-left: 0;
 }
 
-/* line 26, ../sass/app.scss */
+/* line 29, ../sass/app.scss */
 .justifyCon, .funcBtnCon {
   text-align: justify;
 }
-/* line 28, ../sass/app.scss */
+/* line 31, ../sass/app.scss */
 .justifyCon > *, .funcBtnCon > * {
   display: inline-block;
   position: relative;
 }
-/* line 32, ../sass/app.scss */
+/* line 35, ../sass/app.scss */
 .justifyCon:before, .funcBtnCon:before {
   content: '';
   display: block;
   width: 100%;
 }
-/* line 37, ../sass/app.scss */
+/* line 40, ../sass/app.scss */
 .justifyCon:after, .funcBtnCon:after {
   content: '';
   display: inline-block;
   width: 100%;
 }
 
-/* line 44, ../sass/app.scss */
+/* line 47, ../sass/app.scss */
 #result-effect {
   position: fixed;
   z-index: 1;
 }
-/* line 48, ../sass/app.scss */
+/* line 51, ../sass/app.scss */
 #result-effect #o, #result-effect #x, #result-effect #timeup {
   position: absolute;
   display: none;
@@ -123,19 +128,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   margin-top: -17vw;
   margin-left: -17vw;
 }
-/* line 56, ../sass/app.scss */
+/* line 59, ../sass/app.scss */
 #result-effect #o .show, #result-effect #x .show, #result-effect #timeup .show {
   display: block;
 }
 
-/* line 62, ../sass/app.scss */
+/* line 65, ../sass/app.scss */
 body {
   background: url(../img/bg.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* line 67, ../sass/app.scss */
+/* line 70, ../sass/app.scss */
 header {
   background: url(../img/nav.png);
   background-size: auto auto;
@@ -149,42 +154,42 @@ header {
   position: absolute;
 }
 
-/* line 80, ../sass/app.scss */
+/* line 83, ../sass/app.scss */
 #time #timImg {
   position: absolute;
   z-index: 1;
   top: 0;
 }
-/* line 84, ../sass/app.scss */
+/* line 87, ../sass/app.scss */
 #time #timImg img {
   width: 100%;
 }
-/* line 89, ../sass/app.scss */
+/* line 92, ../sass/app.scss */
 #time .circle {
   background: none;
 }
-/* line 92, ../sass/app.scss */
+/* line 95, ../sass/app.scss */
 #time .circle-inner {
   top: 0;
   z-index: 3;
 }
 
-/* line 97, ../sass/app.scss */
+/* line 100, ../sass/app.scss */
 #game {
   position: relative;
 }
 
-/* line 101, ../sass/app.scss */
+/* line 104, ../sass/app.scss */
 #hint {
   position: absolute;
   right: 0;
   top: 400px;
 }
-/* line 105, ../sass/app.scss */
+/* line 108, ../sass/app.scss */
 #hint img {
   width: 150px;
 }
-/* line 108, ../sass/app.scss */
+/* line 111, ../sass/app.scss */
 #hint span.round {
   position: absolute;
   width: 100%;
@@ -196,22 +201,22 @@ header {
   padding-left: 16px;
 }
 
-/* line 122, ../sass/app.scss */
+/* line 125, ../sass/app.scss */
 #sound {
   display: none;
 }
 
-/* line 125, ../sass/app.scss */
+/* line 128, ../sass/app.scss */
 .question {
   text-align: center;
 }
 
-/* line 128, ../sass/app.scss */
+/* line 131, ../sass/app.scss */
 .red {
   color: red;
 }
 
-/* line 134, ../sass/app.scss */
+/* line 137, ../sass/app.scss */
 .qWordCon .qWord {
   font-family: SE !important;
   font-size: 5em;
@@ -219,25 +224,25 @@ header {
   padding-top: 30px;
   display: block;
 }
-/* line 142, ../sass/app.scss */
+/* line 145, ../sass/app.scss */
 .qWordCon .qPron {
   font-family: SE !important;
   font-size: 1em;
   font-weight: 500;
 }
 
-/* line 150, ../sass/app.scss */
+/* line 153, ../sass/app.scss */
 #time {
   text-align: center;
 }
-/* line 152, ../sass/app.scss */
+/* line 155, ../sass/app.scss */
 #time #timeText {
   left: 0;
   font-size: 4em;
   font-weight: 500;
   line-height: 140px;
 }
-/* line 159, ../sass/app.scss */
+/* line 162, ../sass/app.scss */
 #time .soundClickSpan {
   z-index: 4;
   position: absolute;
@@ -247,12 +252,12 @@ header {
   cursor: pointer;
 }
 
-/* line 169, ../sass/app.scss */
+/* line 172, ../sass/app.scss */
 #audio {
   display: none;
 }
 
-/* line 173, ../sass/app.scss */
+/* line 176, ../sass/app.scss */
 #board {
   margin-top: 147px;
   margin-left: auto;
@@ -261,12 +266,12 @@ header {
   width: 80%;
   background-size: contain;
 }
-/* line 182, ../sass/app.scss */
+/* line 185, ../sass/app.scss */
 #board:before {
   padding-top: 38.9%;
 }
 
-/* line 187, ../sass/app.scss */
+/* line 190, ../sass/app.scss */
 #table {
   background-image: url("../img/table.png");
   padding-top: 17%;
@@ -274,16 +279,16 @@ header {
   width: 80%;
 }
 
-/* line 199, ../sass/app.scss */
+/* line 202, ../sass/app.scss */
 .funcBtnCon {
   padding-top: 20px;
 }
 
-/* line 204, ../sass/app.scss */
+/* line 207, ../sass/app.scss */
 .heart {
   text-align: center;
 }
-/* line 206, ../sass/app.scss */
+/* line 209, ../sass/app.scss */
 .heart .heartCell {
   -moz-transition: opacity 1s ease-in-out;
   -o-transition: opacity 1s ease-in-out;
@@ -291,27 +296,27 @@ header {
   transition: opacity 1s ease-in-out;
   opacity: 1;
 }
-/* line 209, ../sass/app.scss */
+/* line 212, ../sass/app.scss */
 .heart .heartCell.hurt {
   opacity: 0;
 }
-/* line 213, ../sass/app.scss */
+/* line 216, ../sass/app.scss */
 .heart .circle-inner {
   margin-top: 20%;
 }
 
-/* line 221, ../sass/app.scss */
+/* line 224, ../sass/app.scss */
 .circle {
   display: inline-block;
   background-image: url(../img/circle.png);
   width: 140px;
 }
-/* line 227, ../sass/app.scss */
+/* line 230, ../sass/app.scss */
 .circle:before {
   padding-top: 100%;
 }
 
-/* line 233, ../sass/app.scss */
+/* line 236, ../sass/app.scss */
 .ballon {
   background-image: url(../img/br.png);
   background-position: center;
@@ -326,26 +331,26 @@ header {
   -webkit-transition: background-size 0.4s ease-in-out;
   transition: background-size 0.4s ease-in-out;
 }
-/* line 246, ../sass/app.scss */
+/* line 249, ../sass/app.scss */
 .ballon:before {
   content: "";
   padding-top: 150%;
 }
-/* line 252, ../sass/app.scss */
+/* line 255, ../sass/app.scss */
 .ballon:hover {
   background-size: 70% auto !important;
   cursor: pointer;
 }
-/* line 256, ../sass/app.scss */
+/* line 259, ../sass/app.scss */
 .ballon.broke {
   cursor: default;
   background-size: 0% auto !important;
 }
-/* line 259, ../sass/app.scss */
+/* line 262, ../sass/app.scss */
 .ballon.broke span {
   opacity: 0;
 }
-/* line 264, ../sass/app.scss */
+/* line 267, ../sass/app.scss */
 .ballon span {
   font-family: SE !important;
   top: 50% !important;
@@ -362,69 +367,69 @@ header {
   transition: opacity 0.4s ease-in-out;
 }
 
-/* line 275, ../sass/app.scss */
+/* line 278, ../sass/app.scss */
 .ballonCon {
   padding: 50px 10px;
 }
-/* line 276, ../sass/app.scss */
+/* line 279, ../sass/app.scss */
 .ballonCon .col-md-2 {
   width: 10%;
 }
-/* line 278, ../sass/app.scss */
+/* line 281, ../sass/app.scss */
 .ballonCon .col-md-2:nth-child(2n-1) {
   background-image: url(../img/bl.png);
 }
 
-/* line 285, ../sass/app.scss */
+/* line 288, ../sass/app.scss */
 .funcBtn {
   width: 120px;
 }
-/* line 286, ../sass/app.scss */
+/* line 289, ../sass/app.scss */
 .funcBtn.used {
   visibility: hidden;
 }
-/* line 290, ../sass/app.scss */
+/* line 293, ../sass/app.scss */
 .funcBtn img {
   width: 100%;
 }
 
 /* for modal*/
-/* line 297, ../sass/app.scss */
+/* line 300, ../sass/app.scss */
 .modal {
   border: none;
 }
-/* line 298, ../sass/app.scss */
+/* line 301, ../sass/app.scss */
 .modal * {
   border: 0;
 }
-/* line 301, ../sass/app.scss */
+/* line 304, ../sass/app.scss */
 .modal .modal-content {
   background-image: url(../img/start/bg.png);
   background-size: 100% 100%;
 }
-/* line 305, ../sass/app.scss */
+/* line 308, ../sass/app.scss */
 .modal .modal-dialog {
   width: 90%;
 }
-/* line 310, ../sass/app.scss */
+/* line 313, ../sass/app.scss */
 .modal .img {
   width: 100%;
   display: block;
   margin: auto;
 }
 
-/* line 319, ../sass/app.scss */
+/* line 322, ../sass/app.scss */
 #loseModal #endmodalbar {
   width: 90%;
   margin: auto;
   display: block;
 }
-/* line 324, ../sass/app.scss */
+/* line 327, ../sass/app.scss */
 #loseModal #scoreboard {
   padding-top: 50.8%;
   background-image: url(../img/end/score.png);
 }
-/* line 329, ../sass/app.scss */
+/* line 332, ../sass/app.scss */
 #loseModal #scoreboard .score {
   font-family: SE !important;
   font-size: 5em;
@@ -434,7 +439,7 @@ header {
   padding-right: 50px;
   padding-top: 50px;
 }
-/* line 340, ../sass/app.scss */
+/* line 343, ../sass/app.scss */
 #loseModal #scoreboard .round {
   font-family: SE !important;
   padding-top: 65px;
@@ -445,7 +450,7 @@ header {
   display: block;
 }
 
-/* line 353, ../sass/app.scss */
+/* line 356, ../sass/app.scss */
 #startModal #startBtn {
   width: 70% !important;
   margin-top: 30px;

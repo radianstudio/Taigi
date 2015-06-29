@@ -7,6 +7,9 @@
   src: url('../font/ChekiangShuKeSung.TTF');
 }
 
+body * {
+  cursor: url(../img/cursor.png) 25 25, auto !important;
+}
 
 .background-element {
   position:relative ;

@@ -3,7 +3,9 @@
     var GameController, Lib, Main, PARAM, _Audio, _Board, _Data, _Lib, _Life, _Page, _Question, _Score, _Time;
     PARAM = {
       TIME: 30,
-      LIFE: 5
+      LIFE: 5,
+      SHOW_TIME: 2000,
+      PREPARED_QUESTION_NUM: 5
     };
     _Lib = (function() {
       function _Lib() {}
@@ -76,6 +78,10 @@
         }
         score += amount;
         console.log("score :" + score);
+      };
+
+      _Score.prototype.resetCombo = function() {
+        return accumulate = 1;
       };
 
       addRound = function(amount) {
@@ -180,7 +186,6 @@
       _countLoop = function() {
         _time = _time - 1;
         $timeTextView.text(_time);
-        console.log(_time);
         if (_time === 0) {
           Main.timeout();
         } else {
@@ -523,7 +528,6 @@
         dataToShow = {};
         _return = function(abandon) {
           if (abandon) {
-            console.warn("兩個聲音引擎都抓不到，跳過此題！");
             return callback(false);
           } else if ((callback != null) && (dataToShow.optionList != null) && (dataToShow.audioUrl != null)) {
             console.info('取得題目', dataToShow.question, dataToShow.audioUrl);
@@ -543,17 +547,17 @@
             dataToShow.optionList = optionList;
             return _return();
           });
-          return THIS.getMp3New(Q.question, function(url) {
-            if (url.length > 2) {
-              dataToShow.audioUrl = url;
+          return THIS.getMp3New(Q.question, function(url_newEngine) {
+            if (url_newEngine.length > 2) {
+              dataToShow.audioUrl = url_newEngine;
               return _return();
             } else {
-              console.warn("抓不到新引擎[" + Q.question + "]的發音 Mp3");
               return THIS.getMp3(Q.question, function(url) {
                 if (url.length < 2) {
-                  console.warn("抓不到[" + Q.question + "]的發音Mp3", dataToShow.audioUrl);
+                  console.warn("新舊引擎都抓不到[" + Q.question + "]的發音Mp3，跳過此題", dataToShow.audioUrl);
                   return _return(true);
                 } else {
+                  console.warn("新引擎抓不到[" + Q.question + "] " + url_newEngine + "，抓到舊引擎[" + Q.question + "]的發音 Mp3");
                   dataToShow.audioUrl = url;
                   return _return();
                 }
@@ -668,14 +672,13 @@
         url = 'http://2b4db149.ngrok.io/game/music/' + encodeURIComponent(word) + '.wav';
         return $.ajax({
           type: 'get',
-          dataType: 'text',
+          dataType: 'wav',
           url: url,
           error: function(error) {
             return console.warn("getMp3New , ajax error", error);
           },
           success: function(data, status) {
-            console.log("Data.getMp3New", status);
-            console.log("Data.getMp3New", 'url', url, data);
+            console.log("Data.getMp3New", "[" + word + "]", url, data);
             if (data.responseText.length > 6) {
               return callback(url);
             } else {
@@ -822,16 +825,23 @@
       };
 
       GameController.prototype.prepareQuesiton = function(wellPreparedCallback) {
-        if ((wellPreparedCallback != null) && questionDataList.length === 1) {
-          wellPreparedCallback();
-        }
-        if (questionDataList.length < 2) {
-          return Data.prepareQuestion(function(dataToShow) {
-            if (dataToShow) {
-              questionDataList.push(dataToShow);
-            }
-            return THIS.prepareQuesiton(wellPreparedCallback);
-          });
+        var i, k, ref, ref1, results;
+        if (questionDataList.length < PARAM.PREPARED_QUESTION_NUM) {
+          results = [];
+          for (i = k = ref = questionDataList.length, ref1 = PARAM.PREPARED_QUESTION_NUM; ref <= ref1 ? k < ref1 : k > ref1; i = ref <= ref1 ? ++k : --k) {
+            results.push(Data.prepareQuestion(function(dataToShow) {
+              if (dataToShow) {
+                questionDataList.push(dataToShow);
+                if (wellPreparedCallback != null) {
+                  wellPreparedCallback();
+                  return wellPreparedCallback = void 0;
+                }
+              } else {
+                return THIS.prepareQuesiton(wellPreparedCallback);
+              }
+            }));
+          }
+          return results;
         }
       };
 
@@ -859,6 +869,7 @@
             return _status.prepared = true;
           });
         } else {
+          THIS.prepareQuesiton();
           return console.error("已經沒有準備好的題目了，這不應該發生");
         }
       };
@@ -914,7 +925,7 @@
             Main.nextQuestion();
           }
           return $("#timeup").fadeOut();
-        }), 1500);
+        }), PARAM.SHOW_TIME);
       };
 
       GameController.prototype.wrongAns = function() {
@@ -924,12 +935,13 @@
         Question.showAnsWord();
         $("#x").fadeIn();
         life = Life.minus(1);
+        Score.resetCombo();
         return setTimeout((function() {
           if (life !== 0) {
             Main.nextQuestion();
           }
           return $("#x").fadeOut();
-        }), 1500);
+        }), PARAM.SHOW_TIME);
       };
 
       GameController.prototype.rightAns = function() {
@@ -941,7 +953,7 @@
         return setTimeout((function() {
           $("#o").fadeOut();
           return Main.nextQuestion();
-        }), 1500);
+        }), PARAM.SHOW_TIME);
       };
 
       GameController.prototype.newGame = function() {

@@ -3,6 +3,8 @@ $ ->
   PARAM =
     TIME : 30 # defalut timer count
     LIFE : 5
+    SHOW_TIME : 2000
+    PREPARED_QUESTION_NUM : 5
   class _Lib
     constructor :()->
     getRandomInt : (min, max) ->
@@ -44,6 +46,8 @@ $ ->
       score += amount
       console.log "score :" + score
       return
+    resetCombo : ->
+      accumulate = 1
     addRound = (amount = 1)->
       round += amount
       return
@@ -105,7 +109,7 @@ $ ->
 
       _time = _time - 1
       $timeTextView.text _time
-      console.log _time
+      # console.log _time
       if _time is 0
         Main.timeout()
       else
@@ -358,7 +362,7 @@ $ ->
       dataToShow = {}
       _return = (abandon )->
         if abandon
-          console.warn("兩個聲音引擎都抓不到，跳過此題！")
+
           callback(false)
 
         else if callback? and dataToShow.optionList? and dataToShow.audioUrl?
@@ -375,17 +379,17 @@ $ ->
           console.warn('選項文字串長度不及20',optionList.length) if optionList.length < 20
           dataToShow.optionList = optionList
           _return()
-        THIS.getMp3New Q.question , (url)->            #  get mp3 by question
-          if  url.length > 2
-            dataToShow.audioUrl = url
+        THIS.getMp3New Q.question , (url_newEngine)->            #  get mp3 by question
+          if  url_newEngine.length > 2
+            dataToShow.audioUrl = url_newEngine
             _return()
           else
-            console.warn "抓不到新引擎[#{Q.question}]的發音 Mp3"
             THIS.getMp3 Q.question , (url)->
               if (url.length < 2)
-                console.warn "抓不到[#{Q.question}]的發音Mp3", dataToShow.audioUrl
+                console.warn "新舊引擎都抓不到[#{Q.question}]的發音Mp3，跳過此題", dataToShow.audioUrl
                 _return(true)
               else
+                console.warn "新引擎抓不到[#{Q.question}] #{url_newEngine}，抓到舊引擎[#{Q.question}]的發音 Mp3"
                 dataToShow.audioUrl = url
                 _return()
 
@@ -472,17 +476,17 @@ $ ->
           callback(url)
 
     getMp3New : (word , callback) ->
-      url = 'http://2b4db149.ngrok.io/game/music/'+encodeURIComponent(word)+'.wav'
+      url = 'http://2b4db149.ngrok.io/game/music/'+encodeURIComponent(word) + '.wav'
       $.ajax
         type: 'get'
-        dataType: 'text'
+        dataType: 'wav'
         url: url
         error: (error) ->
           console.warn "getMp3New , ajax error",error
         success: (data,status) ->
-          console.log("Data.getMp3New",status)
+          # console.log("Data.getMp3New",status)
           # url = _getMp3Process(data)
-          console.log("Data.getMp3New", 'url' , url , data)
+          console.log("Data.getMp3New", "[#{word}]" , url , data)
           if data.responseText.length > 6
             callback(url)
           else
@@ -600,14 +604,17 @@ $ ->
 
 
 
-    prepareQuesiton : (wellPreparedCallback)->
-      if wellPreparedCallback? and questionDataList.length is 1
-        wellPreparedCallback()
-      if questionDataList.length < 2
-        Data.prepareQuestion (dataToShow)->
-          if dataToShow
-            questionDataList.push(dataToShow)
-          THIS.prepareQuesiton(wellPreparedCallback)
+    prepareQuesiton : (wellPreparedCallback )->
+      if questionDataList.length < PARAM.PREPARED_QUESTION_NUM
+        for i in [questionDataList.length...PARAM.PREPARED_QUESTION_NUM]
+          Data.prepareQuestion (dataToShow)->
+            if dataToShow
+              questionDataList.push(dataToShow)
+              if wellPreparedCallback?
+                wellPreparedCallback()
+                wellPreparedCallback = undefined
+            else
+              THIS.prepareQuesiton(wellPreparedCallback)
 
     constructor : ()->
       THIS = @
@@ -631,6 +638,7 @@ $ ->
           Audio.play("question")
           _status.prepared = true
       else
+        THIS.prepareQuesiton()
         console.error "已經沒有準備好的題目了，這不應該發生"
 
     playSound : ()->
@@ -677,18 +685,18 @@ $ ->
       setTimeout (()->
         Main.nextQuestion()if life isnt 0
         $("#timeup").fadeOut()
-      ),1500
+      ),PARAM.SHOW_TIME
     wrongAns:()->
       Timer.stop()
       Audio.play("x")
       Question.showAnsWord()
       $("#x").fadeIn()
       life = Life.minus(1)
-
+      Score.resetCombo()
       setTimeout (()->
         Main.nextQuestion()if life isnt 0
         $("#x").fadeOut()
-      ),1500
+      ),PARAM.SHOW_TIME
 
     rightAns:()->
       Timer.stop()
@@ -699,7 +707,7 @@ $ ->
       setTimeout (()->
         $("#o").fadeOut()
         Main.nextQuestion()
-      ),1500
+      ),PARAM.SHOW_TIME
     newGame : ()->
       if not gamming
 
