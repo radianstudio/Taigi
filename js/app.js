@@ -915,6 +915,7 @@
 
       GameController.prototype.timeout = function() {
         var life;
+        _status.prepared = false;
         Timer.stop();
         Question.showAnsWord();
         Audio.play("x");
@@ -930,6 +931,7 @@
 
       GameController.prototype.wrongAns = function() {
         var life;
+        _status.prepared = false;
         Timer.stop();
         Audio.play("x");
         Question.showAnsWord();
@@ -945,6 +947,7 @@
       };
 
       GameController.prototype.rightAns = function() {
+        _status.prepared = false;
         Timer.stop();
         Question.showAnsWord();
         Audio.play("o");

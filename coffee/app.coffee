@@ -677,6 +677,7 @@ $ ->
 
 
     timeout : ()->
+      _status.prepared = false 
       Timer.stop()
       Question.showAnsWord()
       Audio.play("x")
@@ -687,6 +688,7 @@ $ ->
         $("#timeup").fadeOut()
       ),PARAM.SHOW_TIME
     wrongAns:()->
+      _status.prepared = false
       Timer.stop()
       Audio.play("x")
       Question.showAnsWord()
@@ -699,6 +701,7 @@ $ ->
       ),PARAM.SHOW_TIME
 
     rightAns:()->
+      _status.prepared = false
       Timer.stop()
       Question.showAnsWord()
       Audio.play("o")
