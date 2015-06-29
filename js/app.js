@@ -869,7 +869,9 @@
             return _status.prepared = true;
           });
         } else {
-          THIS.prepareQuesiton();
+          THIS.prepareQuesiton(function() {
+            return THIS.nextQuestion();
+          });
           return console.error("已經沒有準備好的題目了，這不應該發生");
         }
       };

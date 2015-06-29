@@ -638,7 +638,8 @@ $ ->
           Audio.play("question")
           _status.prepared = true
       else
-        THIS.prepareQuesiton()
+        THIS.prepareQuesiton ->
+          THIS.nextQuestion()
         console.error "已經沒有準備好的題目了，這不應該發生"
 
     playSound : ()->
@@ -677,7 +678,7 @@ $ ->
 
 
     timeout : ()->
-      _status.prepared = false 
+      _status.prepared = false
       Timer.stop()
       Question.showAnsWord()
       Audio.play("x")
