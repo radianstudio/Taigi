@@ -137,7 +137,7 @@ $ ->
       _countLoop()
 
     stop : ()->
-      console.log('stop timer',t)
+      # console.log('stop timer',t)
       if t? then clearTimeout t
       # console.log(t)
     remainTime :()->
@@ -540,7 +540,7 @@ $ ->
 
       str = num.toString()
       arr = str.split('')
-      console.log (arr)
+      # console.log (arr)
       strArr = []
       strArr.push(bigNumArr[v]) for v in arr
       return strArr.join("")
@@ -631,7 +631,7 @@ $ ->
         Timer.start()
 
         Board.refreshBoard(data.answerWord , data.optionList) ## Board to next round
-        console.log "Main..round " + round
+        # console.log "Main..round " + round
         Page.showRound(_status.round++)
         Audio.refreshSrc(data.audioUrl)
         Question.refresQuestion data.question,data.pronounce, data.qIndex , ()->
@@ -643,7 +643,7 @@ $ ->
         console.error "已經沒有準備好的題目了，這不應該發生"
 
     playSound : ()->
-      console.log(Audio)
+      # console.log(Audio)
       if Audio.checkSrc()
         Audio.play("question")
         return true

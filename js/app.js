@@ -220,7 +220,6 @@
       };
 
       _Time.prototype.stop = function() {
-        console.log('stop timer', t);
         if (t != null) {
           return clearTimeout(t);
         }
@@ -750,7 +749,6 @@
         var arr, k, len, str, strArr, v;
         str = num.toString();
         arr = str.split('');
-        console.log(arr);
         strArr = [];
         for (k = 0, len = arr.length; k < len; k++) {
           v = arr[k];
@@ -861,7 +859,6 @@
           THIS.prepareQuesiton();
           Timer.start();
           Board.refreshBoard(data.answerWord, data.optionList);
-          console.log("Main..round " + round);
           Page.showRound(_status.round++);
           Audio.refreshSrc(data.audioUrl);
           return Question.refresQuestion(data.question, data.pronounce, data.qIndex, function() {
@@ -877,7 +874,6 @@
       };
 
       GameController.prototype.playSound = function() {
-        console.log(Audio);
         if (Audio.checkSrc()) {
           Audio.play("question");
           return true;
