@@ -5,7 +5,7 @@ $ ->
     LIFE : 5
     SHOW_TIME : 2000
     PREPARED_QUESTION_NUM : 5
-  class _Lib 
+  class _Lib
     constructor :()->
     getRandomInt : (min, max) ->
       Math.floor(Math.random() * (max - min + 1)) + min
@@ -413,7 +413,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType: 'text'
-        url: 'http://2b4db149.ngrok.io/q/get_question/'
+        url: '../q/get_question/'
         success:(data,status)->
           # console.log( "Data.getQuestion", status)
           callback(_getQuestionProcess(data)) if typeof(callback) is 'function'
@@ -438,7 +438,7 @@ $ ->
       $.ajax
         type: 'get'
         dataType : 'text'
-        url: "http://2b4db149.ngrok.io/q/close_pronounce/#{pronounce}"
+        url: "../q/close_pronounce/#{pronounce}"
         success:(data,status)->
           text = Lib.strip(data.responseText)
           optionList = _getOptionProcess(text,word)
@@ -476,7 +476,7 @@ $ ->
           callback(url)
 
     getMp3New : (word , callback) ->
-      url = 'http://2b4db149.ngrok.io/game/music/'+encodeURIComponent(word) + '.wav'
+      url = '/music/'+encodeURIComponent(word) + '.wav'
       $.ajax
         type: 'get'
         dataType: 'wav'

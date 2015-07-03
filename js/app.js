@@ -586,7 +586,7 @@
         return $.ajax({
           type: 'get',
           dataType: 'text',
-          url: 'http://2b4db149.ngrok.io/q/get_question/',
+          url: '../q/get_question/',
           success: function(data, status) {
             if (typeof callback === 'function') {
               return callback(_getQuestionProcess(data));
@@ -620,7 +620,7 @@
         return $.ajax({
           type: 'get',
           dataType: 'text',
-          url: "http://2b4db149.ngrok.io/q/close_pronounce/" + pronounce,
+          url: "../q/close_pronounce/" + pronounce,
           success: function(data, status) {
             var optionList, text;
             text = Lib.strip(data.responseText);
@@ -668,7 +668,7 @@
 
       _Data.prototype.getMp3New = function(word, callback) {
         var url;
-        url = 'http://2b4db149.ngrok.io/game/music/' + encodeURIComponent(word) + '.wav';
+        url = '/music/' + encodeURIComponent(word) + '.wav';
         return $.ajax({
           type: 'get',
           dataType: 'wav',
