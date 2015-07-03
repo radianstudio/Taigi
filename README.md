@@ -16,6 +16,7 @@ open http://localhost:8000/game/index.html
 
 本遊戲使用 [Grunt](http://gruntjs.com/) 語言編譯套件，設定檔在 `Gruntfile.js` 裡面，主要是將所有編譯程式碼的指令，整合在 grunt 裡面，例如 sass , coffee 等語言，都可以透過 grunt 裡面的套件來進行編譯。注意：一定要在此資料夾執行 npm install 才有辦法使用 grunt。
 
+### 編譯指令如下
 ```shell
 grunt
 ```
