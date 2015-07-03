@@ -114,10 +114,6 @@
 
       $heart = $("#heart");
 
-<<<<<<< HEAD
-      function Life(life1) {
-        this.life = life1;
-=======
       function _Life(_Main, life) {
         if (life == null) {
           life = DEFAULT_LIFE;
@@ -126,7 +122,6 @@
         THIS = this;
         _life = life;
         THIS.updateView(_life);
->>>>>>> gh-pages
       }
 
       _Life.prototype.minus = function(num) {
@@ -252,15 +247,6 @@
 
       _question = void 0;
 
-<<<<<<< HEAD
-      _getHtml = function(question, qIndex) {
-        var _html, i, j, len, ref, w;
-        _html = "";
-        ref = question.split('');
-        for (i = j = 0, len = ref.length; j < len; i = ++j) {
-          w = ref[i];
-          _html += "<div class=\"circle qWordCon\"><span class=\"qWord\">" + (i !== qIndex ? w : '') + "</span></div>";
-=======
       _currentAns = {
         _ansWord: void 0,
         _ansPron: void 0,
@@ -274,7 +260,6 @@
         for (i = k = 0, len = ref.length; k < len; i = ++k) {
           w = ref[i];
           _html += "<div class=\"circle qWordCon qWordConAns\">\n  <div class=\"inner\">\n    <span class=\"qWord\">" + (i !== qIndex ? w : '*') + "</span>\n    <span class=\"qPron\">" + (i !== qIndex ? pronounce[i] : '...') + "</span>\n  </div>\n</div>";
->>>>>>> gh-pages
         }
         return _html;
       };
@@ -377,21 +362,6 @@
         return c = index === _answerIndex;
       };
 
-<<<<<<< HEAD
-      Board.prototype.refreshBoard = function(optionList) {
-        var finalList, html, i, j, len, results, w;
-        _answerIndex = void 0;
-        finalList = _processList(optionList);
-        THIS.destruct();
-        results = [];
-        for (i = j = 0, len = finalList.length; j < len; i = ++j) {
-          w = finalList[i];
-          html = _getBallonHtml(w, i);
-          console.log($boardContainer.length);
-          results.push($(html).appendTo($boardContainer));
-        }
-        return results;
-=======
       _Board.prototype.refreshBoard = function(answerWord, optionList) {
         var finalList;
         _answerIndex = void 0;
@@ -408,7 +378,6 @@
             return $boardContainer.find('.ballon').removeClass('broke');
           }), 100);
         });
->>>>>>> gh-pages
       };
 
       _Board.prototype.destruct = function(callback) {
