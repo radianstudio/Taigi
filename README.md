@@ -13,3 +13,7 @@ $ node server.js
 * 會有重複的選項，但正解只有一個
 * 目前暫時都以最後一個字當作挖空
 
+License
+-----------
+
+MIT License <http://g0v.mit-license.org/>
