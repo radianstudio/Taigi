@@ -1,0 +1,47 @@
+.modal-content{
+	background-image: url(../img/start/bg.png);
+	background-size: cover ;
+  	background-repeat: no-repeat ;
+  	position: relative ;
+
+	width: 1450px;
+	height: 810px;
+	transform: translate(-30%, 0) !important;
+  	-ms-transform: translate(-30%, 0) !important; /* IE 9 */
+  	-webkit-transform: translate(-30%, 0) !important; /* Safari and Chrome */
+}
+
+#endmodalbar{
+	background-image: url(../img/end/endbar.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height:100px;
+}
+
+#scoreboard{
+
+	background-image: url(../img/end/score.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width:100%;
+	height:450px;
+}
+
+#endbutton{
+	background-repeat: no-repeat;
+	background-position: center;
+	width:700px;
+	height:200px;
+	float:left;
+	transform: translate(1.5%, 0) !important;
+  	-ms-transform: translate(1.5%, 0) !important; /* IE 9 */
+  	-webkit-transform: translate(1.5%, 0) !important; /* Safari and Chrome */
+}
+
+.tryagain{
+	background-image:url(../img/end/tryagain.png);
+}
+.quitgame{
+	background-image:url(../img/end/quitgame.png);
+}

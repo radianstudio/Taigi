@@ -1,0 +1,69 @@
+.container {
+  background-color: white;
+  background-image: url(../img/bg.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  background-image: url(../img/nav.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 100%;
+  height: 100%;
+}
+
+nav {
+  overflow: hidden;
+}
+
+#C1 {
+  background-image: url(../img/circle.png);
+  background-size: 100%;
+  float: left;
+  width: 166px;
+  height: 166px;
+}
+
+#C2 {
+  background-image: url(../img/circle.png);
+  background-size: 100%;
+  margin: 0px auto;
+  display: inline-block;
+  width: 166px;
+  height: 166px;
+}
+
+#C3 {
+  background-image: url(../img/circle.png);
+  background-size: 100%;
+  float: right;
+  width: 166px;
+  height: 166px;
+}
+
+#heart {
+  margin-left: center;
+  vertical-align: middle;
+}
+
+#board {
+  background: url(../img/board.png);
+  background-size: 100%;
+  width: 1014px;
+  height: 395px;
+}
+
+#table {
+  background: url(../img/table.png);
+  background-size: 100%;
+  width: 1157px;
+  height: 262px;
+}
+
+#item {
+  margin-left: 50px;
+  margin-right: 50px;
+}
