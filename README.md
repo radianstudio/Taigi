@@ -30,4 +30,4 @@ grunt production
 ```shell
 grunt listen
 ```
-會去監聽 `sass/*.sass` 和 `coffee/*.coffee` 檔案，一旦發生變更就立刻 compile.
+會去監聽 `sass/*.sass` 和 `coffee/*.coffee` 檔案，一旦發生變更就立刻 compile
