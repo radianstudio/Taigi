@@ -5,7 +5,7 @@ $ ->
     LIFE : 5
     SHOW_TIME : 2000
     PREPARED_QUESTION_NUM : 5
-  class _Lib
+  class _Lib 
     constructor :()->
     getRandomInt : (min, max) ->
       Math.floor(Math.random() * (max - min + 1)) + min

@@ -18,7 +18,7 @@ body * {
   &:before {
     content : "" ;
     display: block;
-  }
+  } 
   > *:first-of-type {
     top: 0;
     position: absolute;
@@ -56,7 +56,7 @@ body * {
     left: 50vw ;
     margin-top: -17vw;
     margin-left: -17vw;
-    z-index: 10000 ; 
+    z-index: 10000 ;
     .show {
       display: block;
     }

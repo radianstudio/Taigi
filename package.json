@@ -1,0 +1,19 @@
+{
+  "name": "Taigi-Game",
+  "version": "1.0.0",
+  "description": "為了推廣台語，本遊戲因應而生",
+  "keywords": [
+    "Taigi"
+  ],
+  "author": "NCCU SE5",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-compass": "^1.0.3",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.1.0"
+  }
+}
