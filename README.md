@@ -27,7 +27,12 @@ grunt production
 ```
 會去 compile `sass/*.sass` 和 `coffee/*.coffee`，並且在 compile 完成後，去執行 uglify js 以及 cssmin.
 
+
 ```shell
 grunt listen
 ```
 會去監聽 `sass/*.sass` 和 `coffee/*.coffee` 檔案，一旦發生變更就立刻 compile
+
+License
+-----------
+MIT License <http://g0v.mit-license.org/>
