@@ -1,0 +1,78 @@
+_Lib	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Lib$/;"	function	line:2
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor :()->$/;"	function	line:3
+getRandomInt	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    getRandomInt : (min, max) ->$/;"	function	line:4
+strip	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    strip : (html) ->$/;"	function	line:7
+shuffle	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    shuffle : (o) ->$/;"	function	line:12
+_Score	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Score$/;"	function	line:23
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor:(_Main , initScore = 0 )->$/;"	function	line:26
+reset	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    reset : -> score = 0 ; return ;$/;"	function	line:29
+getScore	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    getScore : -> score$/;"	function	line:30
+addScore	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    addScore : (amount = 1)->$/;"	function	line:31
+_Life	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Life$/;"	function	line:35
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor : (_Main , life = 5)->$/;"	function	line:42
+minus	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    minus : (num = 1)->$/;"	function	line:47
+setLife	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    setLife : (life = 5)->$/;"	function	line:52
+updateView	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    updateView : (life) ->$/;"	function	line:55
+_Time	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Time$/;"	function	line:72
+_countLoop	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _countLoop = ()->$/;"	function	line:80
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor:(_Main)->$/;"	function	line:91
+start	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    start : (time = 300)->$/;"	function	line:95
+reStart	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    reStart : (time)->$/;"	function	line:100
+timeOut	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    timeOut:()->$/;"	function	line:105
+stop	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    stop : ()->$/;"	function	line:110
+remainTime	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    remainTime :()->$/;"	function	line:114
+_Question	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Question$/;"	function	line:118
+_getHtml	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _getHtml = (question,pronounce,qIndex)->$/;"	function	line:131
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor :(_Main , data)->$/;"	function	line:145
+showAnsWord	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    showAnsWord:()->$/;"	function	line:147
+showAnsPron	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    showAnsPron:()->$/;"	function	line:150
+refresQuestion	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    refresQuestion : (question,pronounce,qIndex , callback)->$/;"	function	line:156
+_Board	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Board$/;"	function	line:171
+_getBallonHtml	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _getBallonHtml = (word,index)->$/;"	function	line:177
+_processList	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _processList = (optionList)-> # 20 options to 20 ballon$/;"	function	line:186
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor : (_Main)->$/;"	function	line:191
+half	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    half : ()->$/;"	function	line:196
+checkAnswer	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    checkAnswer:(index)-> # used on ballon on click$/;"	function	line:211
+refreshBoard	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    refreshBoard :(answerWord , optionList) -> # used by controller.$/;"	function	line:214
+destruct	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    destruct : (callback)->$/;"	function	line:229
+_Audio	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Audio$/;"	function	line:249
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor:(_Main)->$/;"	function	line:253
+refreshSrc	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    refreshSrc : (url)->$/;"	function	line:256
+play	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    play:()->$/;"	function	line:261
+checkSrc	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    checkSrc : -> $audioSrc.attr('src').length > 3$/;"	function	line:264
+_Data	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Data$/;"	function	line:269
+_initAjax	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _initAjax = ()->$/;"	function	line:273
+jQuery.ajax	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^      jQuery.ajax = ((_ajax) ->$/;"	function	line:274
+isExternal	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        isExternal = (url) ->$/;"	function	line:281
+o.success	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^            o.success = ((_success) ->$/;"	function	line:298
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor : (_Main)->$/;"	function	line:307
+prepareQuestion	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    prepareQuestion : (callback)->$/;"	function	line:312
+_return	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^      _return = ()->$/;"	function	line:314
+_getQuestionProcess	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _getQuestionProcess = (data)->$/;"	function	line:337
+getQuestion	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    getQuestion : (callback)->$/;"	function	line:351
+success	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        success:(data,status)->$/;"	function	line:356
+error	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        error : (e)->$/;"	function	line:359
+_getOptionProcess	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _getOptionProcess = (data,ans)->$/;"	function	line:362
+getOptionList	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    getOptionList : (word,pronounce,callback)->$/;"	function	line:376
+success	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        success:(data,status)->$/;"	function	line:381
+error	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        error : ()->$/;"	function	line:385
+getMp3	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    getMp3 : (word,callback)->$/;"	function	line:389
+error	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        error: (error) ->$/;"	function	line:408
+success	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^        success: (data,status) ->$/;"	function	line:410
+_getMp3Process	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _getMp3Process = (data)->$/;"	function	line:416
+_Page	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class _Page$/;"	function	line:426
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor :(_Main)->$/;"	function	line:441
+$loseModal.show	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^      $loseModal.show = (howStr,score)->$/;"	function	line:449
+GameController	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^  class GameController$/;"	function	line:463
+_initFuncStatus	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _initFuncStatus = ()->$/;"	function	line:485
+_initSubControllers	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    _initSubControllers = (_this)->$/;"	function	line:492
+prepareQuesiton	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    prepareQuesiton : (wellPreparedCallback)->$/;"	function	line:504
+constructor	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    constructor : ()->$/;"	function	line:512
+nextQuestion	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    nextQuestion : ()->$/;"	function	line:519
+playSound	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    playSound : ()->$/;"	function	line:533
+hint	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    hint :(func)-> # the three treat function$/;"	function	line:543
+minusLife	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    minusLife : (amount = 1)->$/;"	function	line:563
+newGame	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    newGame : ()->$/;"	function	line:566
+addScore	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    addScore : (amount)->$/;"	function	line:574
+checkAnswer	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    checkAnswer:(index)->$/;"	function	line:577
+lose	/Volumes/HDD/Users/Radian/Desktop/NCCU/SE/project/game/coffee/app.coffee	/^    lose : (how)->$/;"	function	line:580

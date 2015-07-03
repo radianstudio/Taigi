@@ -2,6 +2,14 @@
 @import "compass/css3/transform" ;
 @import "compass/css3/transition";
 
+@font-face {
+  font-family: SE ;
+  src: url('../font/ChekiangShuKeSung.TTF');
+}
+
+body * {
+  cursor: url(../img/cursor.png) 25 25, auto !important;
+}
 
 .background-element {
   position:relative ;
@@ -10,7 +18,7 @@
   &:before {
     content : "" ;
     display: block;
-  }
+  } 
   > *:first-of-type {
     top: 0;
     position: absolute;
@@ -36,6 +44,25 @@
   }
 }
 
+#result-effect {
+  position: fixed;
+  z-index: 1;
+
+  #o , #x , #timeup{
+    position: absolute;
+    display: none;
+    width: 34vw;
+    top : 50vh ;
+    left: 50vw ;
+    margin-top: -17vw;
+    margin-left: -17vw;
+    z-index: 10000 ;
+    .show {
+      display: block;
+    }
+  }
+}
+
 body {
   background: url(../img/bg.png);
   background-size: cover ;
@@ -53,15 +80,93 @@ header{
   left:0;
   position: absolute;
 }
+#time {
+  #timImg{
+    position: absolute;
+    z-index: 1 ;
+    top: 0;
+    img{
+      width: 100%;
+
+    }
+  }
+  .circle {
+    background: none;
+  }
+  .circle-inner{
+    top : 0 ;
+    z-index: 3;
+  }
+}
+#game {
+  position: relative;
+}
+
+#hint {
+  position: absolute;
+  right: 0;
+  top:400px;
+  img {
+    width: 150px;
+  }
+  span.round {
+    position: absolute;
+    width: 100% ;
+    padding-top: 20px;
+    text-align: center;
+
+    font-family: SE !important ;
+    font-size: 1.5em;
+    font-weight: 500 ;
+    padding-left: 16px;
+
+  }
+}
+
+#sound{
+  display: none;
+}
 .question {
   text-align: center;
 }
+.red {
+  color : red ;
+}
 .qWordCon{
   @extend .background-element ;
-  span{
+
+  .qWord{
+    font-family: SE !important ;
+    font-size: 5em;
+    font-weight: 500 ;
+    padding-top: 30px;
+    display: block;
+
+  }
+  .qPron {
+    font-family: SE !important ;
+    font-size: 1em;
+    font-weight: 500 ;
+
+  }
+}
+
+#time{
+  text-align: center;
+  #timeText {
+
     left: 0;
-    font-size: 30px;
-    line-height: 200%;
+    font-size: 4em;
+    font-weight: 500;
+    line-height: 140px;
+  }
+  .soundClickSpan{
+    z-index: 4 ;
+    position: absolute;
+    width: 100%;
+    top:144px;
+    height: 100px;
+    cursor: pointer;
   }
 }
 
@@ -71,9 +176,11 @@ header{
 
 #board {
   margin-top: 147px;
+  margin-left: auto;
+  margin-right: auto;
   background: url(../img/board.png);
   @extend .background-element ;
-  width: 100%;
+  width: 80%;
   background-size: contain;
 
   &:before{
@@ -85,8 +192,9 @@ header{
   background-image: url("../img/table.png");
   @extend .background-element ;
 
-  padding-top: 24%;
-  margin-bottom: 20px;
+  padding-top: 17%;
+  margin-top: 20px;
+  width: 80%;
 }
 
 
@@ -94,13 +202,26 @@ header{
 
 .funcBtnCon {
   @extend .justifyCon ;
+  padding-top: 20px;
 }
+
 .heart {
-  text-align: left ;
+  text-align: center ;
+  .heartCell{
+    @include transition (opacity 1s ease-in-out ) ;
+    opacity: 1 ;
+    &.hurt{
+      opacity: 0 ;
+    }
+  }
+  .circle-inner{
+    margin-top: 20%;
+  }
+
 }
-.time {
-  text-align: right ;
-}
+// .time {
+//   text-align: right ;
+// }
 .circle {
   display: inline-block ;
 
@@ -110,28 +231,34 @@ header{
   &:before {
     padding-top: 100%;
   }
-  width: 166px;
+  width: 140px;
 }
 
 .ballon {
-  background: url(../img/bl.png) ;
+  background-image: url(../img/br.png) ;
 
   //@include transition (-moz-transform 1s ease-out );
   background-position:  center ;
   background-repeat: no-repeat;
-  background-size: 60% auto !important;
+  background-size: 80% auto !important;
+  font-size: 2em ;
+  font-weight: 300 ;
+
+  margin-top:20px;
+  margin-bottom: 20px;
   @extend .background-element ;
   &:before {
     content: "";
-    padding-top:100%;
+    padding-top:150%;
   }
 
-  @include transition (background-size .1s ease-in-out ) ;
+  @include transition (background-size .4s ease-in-out ) ;
   &:hover {
     background-size: 70% auto !important ;
     cursor : pointer ;
   }
   &.broke {
+    cursor : default;
     background-size: 0% auto !important ;
     span {
       opacity : 0 ;
@@ -139,20 +266,108 @@ header{
   }
 
   span{
+    font-family: SE !important ;
     top: 50% !important;
     left: 50%;
     text-align: center;
     _width: auto !important ;
     @include transform (translate(-50%,-50%));
-    @include transition (opacity .1s ease-in-out ) ;
+    @include transition (opacity .4s ease-in-out ) ;
   }
-
-
 }
 
 .ballonCon {
   .col-md-2 {
     width: 10%;
+    &:nth-child(2n-1){
+      background-image: url(../img/bl.png) ;
+    }
   }
-  padding: 10px 10px ;
+  padding: 50px 10px ;
 }
+
+.funcBtn {
+  &.used{
+    visibility: hidden;
+  }
+  width: 120px;
+  img {
+    width: 100% ;
+  }
+}
+
+/* for modal*/
+
+.modal {
+  * {
+    border: 0 ;
+  }
+  .modal-content{
+    background-image: url(../img/start/bg.png);
+    background-size: 100% 100%;
+  }
+  .modal-dialog{
+    width: 90%;
+  }
+  border: none;
+
+  .img{
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
+}
+
+#loseModal {
+
+  #endmodalbar{
+    width: 90%;
+    margin: auto;
+    display: block;
+  }
+  #scoreboard{
+    @extend .background-element ;
+    padding-top: 50.8%;
+  	background-image: url(../img/end/score.png);
+
+    .score{
+      font-family: SE !important ;
+      font-size: 5em;
+      display: block;
+      padding-left: 300px;
+      text-align: center;
+      padding-right: 50px;
+
+      padding-top: 50px;
+
+    }
+    .round {
+      font-family: SE !important ;
+      padding-top: 65px;
+      font-size: 5em;
+      padding-left: 300px;
+      text-align: center;
+      padding-right: 50px;
+      display: block;
+    }
+  }
+}
+
+#startModal{
+  #startBtn{
+    width: 70% !important;
+    margin-top:30px;
+  }
+}
+
+
+// #endbutton{
+// 	background-repeat: no-repeat;
+// 	background-position: center;
+// 	width:700px;
+// 	height:200px;
+// 	float:left;
+// 	transform: translate(1.5%, 0) !important;
+//   	-ms-transform: translate(1.5%, 0) !important; /* IE 9 */
+//   	-webkit-transform: translate(1.5%, 0) !important; /* Safari and Chrome */
+// }

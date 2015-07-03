@@ -1,9 +1,8 @@
-
-
 /config.rb
-
-/GRuntfile.js
-/package.json
 /node_modules/*
 /.sass-cache/*
 /main.html
+/started.html
+/server.js
+/end.html
+/.DS_Store
